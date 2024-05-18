@@ -1,0 +1,45 @@
+{% extends "bases/base.html" %}
+{% load static %}
+
+{% block titulo %}{% endblock %}
+{% block contenido %}
+
+
+		
+<link rel="stylesheet" href="{% static 'css_reportes/menu_elastic.css' %}?v=1">
+<link rel="stylesheet" href="{% static 'css_reportes/democ.css' %}?v=1">
+<link rel="stylesheet" href="{% static 'css_reportes/normalize.css' %}?v=1">
+<link rel="stylesheet" href="{% static 'css/footer.css' %}?v=1">
+
+
+
+
+
+<div class="container">
+    <div class="content-wrap">
+        <div class="content">
+            <header class="codrops-header">
+    <br>
+                <h1>Portal Control y Producción<span>Menú de inicio</span></h1>
+                <nav class="codrops-demos">
+                    {% if request.user.is_authenticated and request.user.is_staff %}
+                    <a href="{% url 'info' %}" >Good idea <img src="" alt=""> </a> 
+                  
+
+                     <a href="{% url 'hopper2:proyectos' %}">Hopper</a>
+                     {% endif %}
+   
+                    <!-- <a href="topexpand.html">Top Expand</a>
+                    <a href="cornermorph.html">Corner Morph</a>
+                    <a class="current-demo" href="elastic.html">Elastic</a>
+                    <a href="bubble.html">Bubble</a>
+                    <a href="wave.html">Wave</a> -->
+                </nav>
+            </header>
+  
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

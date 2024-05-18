@@ -1,0 +1,151 @@
+{% extends "bases/base.html" %}
+{% load static %}
+{% block titulo %}{% endblock %}
+
+{% block contenido %}
+<link rel="stylesheet" href="{% static 'css/area.css' %}?v=1" />
+
+
+<div class="container mt-4">
+    <div class="row">
+        <!-- Formulario para crear máquina -->
+        <div class="col-lg-4 col-md-12">
+            <div class="card mb-4">
+                <div class="card-image">
+                    <h2 class="card-heading">
+                        Crear Actividad
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{% url 'area' %}" id="tipo-form">
+                        {% csrf_token %}
+                        {{ form_tipo.as_p }}
+                        <button type="submit" class="btn btn-primary">Crear Tipo</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Formulario para crear área -->
+        <div class="col-lg-4 col-md-12">
+            <div class="card mb-4">
+                <div class="card-image">
+                    <h2 class="card-heading">
+                        Crear Área
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{% url 'area' %}" id="area-form">
+                        {% csrf_token %}
+                        {{ form_area.as_p }}
+                        <button type="submit" class="btn btn-primary">Crear Área</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+            <div class="card mb-4">
+                <div class="card-image">
+                    <h2 class="card-heading">
+                        Crear Máquina
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{% url 'area' %}" id="maquina-form">
+                        {% csrf_token %}
+                        {{ form_maquina.as_p }}
+                        <button type="submit" class="btn btn-primary">Crear Máquina</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>   
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+            <main class="table-responsive">
+                <h4>Tipos</h4>
+                <table class="table table-striped compact-table">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Tipo <span class="icon-arrow">&UpArrow;</span></th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for tipo in tipos %}
+                        <tr>
+                            <td>{{ tipo.id_tipo }}</td>
+                            <td>{{ tipo.nombre }}</td>
+                            <td>
+                                <a name="" class="btn btn-danger delete-button"
+                                    data-url="{% url 'borrarTipo' tipo.id_tipo %}" role="button">X</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </main>
+        </div>
+        <div class="col-md-4">
+            <main class="table-responsive">
+                <h4>Áreas</h4>
+                <table class="table table-striped compact-table">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Área <span class="icon-arrow">&UpArrow;</span></th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for area in areas %}
+                        <tr>
+                            <td>{{ area.id }}</td>
+                            <td>{{ area.nombre }}</td>
+                            <td>
+                                <a name="" class="btn btn-danger delete-button" data-url="{% url 'borrarArea' area.id %}"
+                                    role="button">X</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </main>
+        </div>
+        <div class="col-md-4">
+            <main class="table-responsive">
+                <h4>Máquinas</h4>
+                <table class="table table-striped compact-table">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Máquina <span class="icon-arrow">&UpArrow;</span></th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for maquina in maquinas %}
+                        <tr>
+                            <td>{{ maquina.id_maquina }}</td>
+                            <td>{{ maquina.nombre }}</td>
+                            <td>
+                                <a name="" id="" class="btn btn-danger delete-button"
+                                    data-url="{% url 'borrarMaquina' maquina.id_maquina %}" role="button">X</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </main>
+        </div>
+    </div>
+</div>
+
+
+
+  
+<script  src="{% static 'js/alertas.js' %}"></script>
+
+
+{% endblock %}

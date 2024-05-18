@@ -1,0 +1,234 @@
+{% extends "bases/base.html" %}
+{% load static %}
+{% load custom_filters %}
+{% block titulo %}{% endblock %}
+{% block contenido %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/task.css' %}?v=1">
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/editar.css' %}?v=1">
+<link rel="stylesheet" type="text/css" href="{% static 'css/comentarios.css' %}?v=1">
+
+
+<br>
+
+
+<div class="cprincipal">
+    <div class="animated-card">
+        <div class="card-content">
+            <div class="ag-courses-item_title" style="text-align: center;">
+                dasdsa
+                {{ estudio.nombre }}
+
+            </div>
+            <div class="cronometro-container" id="cronometro-container">
+                <div class="ag-courses-item_title">
+                    <p> Tiempo total del estudio: </p>
+                    <span id="cronometro_estudio" data-estudio-id="{{ estudio.id_estudio }}"
+                        class="{% if estudio.pausado %}pausado{% endif %}">
+                        {% if estudio.tiempo_inicio and not estudio.tiempo_fin %}
+                        {% if estudio.pausado %}
+                        {{ estudio.tiempo_pausa|duration_format }}
+                        {% else %}
+                        {{ estudio.cronometro|duration_format }}
+                        {% endif %}
+                        {% else %}
+                        00:00:00
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+            <!-- Botones para controlar el estudio -->
+            <div class="ag-courses-item_date-box">
+                {% if not estudio.tiempo_inicio %}
+                <a href="{% url 'iniciar_estudio' estudio.id_estudio %}" class="btn btn-success">Iniciar Estudio</a>
+                {% elif not estudio.tiempo_fin %}
+                <a href="{% url 'finalizar_estudio' estudio.id_estudio %}" class="btn btn-danger">Finalizar Estudio</a>
+
+                {% if not estudio.pausado %}
+                <a href="#" id="boton_pausar" onclick="pausarEstudio('{{ estudio.id_estudio }}')"
+                    class="btn btn-warning">Pausar</a>
+                {% else %}
+                <a href="#" id="boton_reanudar" onclick="reanudarEstudio('{{ estudio.id_estudio }}')"
+                    class="btn btn-success">Reanudar</a>
+                {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="formulario">
+        {% if not estudio.tiempo_fin %}
+        <form class="card-form" method="post" action="{% url 'tareas' id_estudio %}" id="actividad-form">
+            {% csrf_token %}
+            <div class="input">
+                <input type="text" class="input-field" name="nombre" id="actividad_nombre"
+                    value="{{ actividad.nombre }}" />
+                <label class="input-label">Nombre de la Actividad</label>
+            </div>
+            <div class="input">
+                <textarea name="descripcion" class="input-field" id="actividad_descripcion"
+                    required>{{ actividad.descripcion }}</textarea>
+                <label class="input-label">Descripción de la Actividad</label>
+            </div>
+
+            <div class="input">
+                <select name="tipo" id="actividad_tipo" class="form-control" required>
+                    {% for t in tipo %}
+                    <option value="{{ t.id_tipo }}">{{ t.nombre }}</option>
+                    {% endfor %}
+                </select>
+
+            </div>
+            <div class="input">
+                <input type="color" name="color" id="actividad_color">
+                <label for="actividad_color">Color:</label>
+            </div>
+            <div class="action">
+                <button class="action-button" {% if estudio.tiempo_fin %}disabled{% endif %}>Crear actividad</button>
+            </div>
+        </form>
+        {% else %}
+        <p>El estudio ha finalizado. No se pueden crear más actividades.</p>
+        {% endif %}
+    </div>
+</div>
+
+
+<div class="ag-courses-item" draggable="true" ondragstart="dragStart(event)">
+    <div class="ag-courses-item_title2" style="text-align: center;">
+        <div class="ag-format-container">
+            <div class="ag-courses_box">
+                {% for actividad in actividades %}
+                <div class="ag-courses_item">
+            
+                    <a href="{% url 'registrar_vuelta' actividad.id %}" class="ag-courses-item_link">
+                        <div class="ag-courses-item_bg" style="background-color: {{ actividad.color }};"></div>
+                
+
+                        <div class="ag-courses-item_title2">
+                            {{ actividad.nombre }}
+                        </div>
+                        <div class="ag-courses-item_date-box">
+                            {{ actividad.tipo.nombre }}
+                        </div>
+                        {% if estudio.tiempo_inicio and not estudio.tiempo_fin %}
+                        {% if not estudio.pausado %}
+                        <a href="{% url 'registrar_vuelta' actividad.id %}"
+                            class="btn btn-danger registrar-vuelta">Finalizar</a>
+                        {% endif %}
+                        {% endif %}
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="alert-container"></div>
+
+<div id="contenido-dinamico">
+    <div class="ag-courses-item_title" style="text-align: center;">
+        <main class="table">   
+            <div class="pagination">
+                <span class="step-links">
+                    {% if vueltas_actividad.has_previous %}
+                        <a href="?page=1" class="pagination-link">&laquo; Primero</a>
+                        <a href="?page={{ vueltas_actividad.previous_page_number }}" class="pagination-link">Anterior</a>
+                    {% endif %}
+                
+                    <span class="current">
+                        Página {{ vueltas_actividad.number }} de {{ vueltas_actividad.paginator.num_pages }}.
+                    </span>
+                
+                    {% if vueltas_actividad.has_next %}
+                        <a href="?page={{ vueltas_actividad.next_page_number }}" class="pagination-link">Siguiente</a>
+                        <a href="?page={{ vueltas_actividad.paginator.num_pages }}" class="pagination-link">Último &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+            <section class="table__body">
+                
+                <div id="miTabla">
+                    <table class="custom-table" id="tabla-vueltas">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Actividad</th>       
+                                <th>Tiempo Real(Min)</th>
+                                <th>Tiempo Total(N)</th>
+                                <th style="text-align: center;">COMENTARIOS</th> 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for vuelta in vueltas_actividad %}
+                            <tr>
+                                <td>{{ numero_vuelta|add:forloop.counter }}</td>
+                                <td class="mi-columna2">{{ vuelta.actividad.nombre }}</td>
+                                <!-- {% if forloop.first %}
+                      
+                                <td class="tiempo-real">{{ vuelta.tiempo_total|duration_format2:'mm' }}</td>
+                              
+                                {% endif %} -->
+                                
+                                <td class="tiempo-real">
+                                    {% if vuelta.tiempo_real is not None %}
+                                    {{ vuelta.tiempo_real|duration_format2:'mm' }}
+
+                                   
+                                    {% else %}..0
+                                    N/A
+                                    {% endif %}
+                                </td>
+                       
+                                <td>{{ vuelta.tiempo_total|duration_format }}</td>
+                                <td class="mi-columna">
+                                    {% if vuelta %}
+                                        <div class="mi-formulario">
+                                            <form method="post" action="" id="comentario-form-{{ vuelta.id }}">
+
+                                                {% csrf_token %}
+                                                <input type="hidden" name="vuelta_id" value="{{ vuelta.id }}">
+                                                <div class="mi-contenedor">
+                                                    {{ comentarioForm2.contenido }}
+                                                    <div class="mi-boton">
+                                                        <button type="submit">✔</button>
+                                                        <span id="recuento-comentarios"># {{ vuelta.cantidad_comentarios }}</span>
+                                                    </div>
+                                                   
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+          
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+<br>
+<br>
+
+
+
+<script src="{% static 'js/calculo.js' %}"></script>
+<script src="{% static 'js/tiempo.js' %}"></script>
+
+
+{% endblock %}
+
+
+
+    
+
+
+

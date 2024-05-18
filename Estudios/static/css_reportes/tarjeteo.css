@@ -1,0 +1,35 @@
+body {
+
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.encabezados {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.encabezados h1 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.encabezados h2 {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: px;
+}
+
+.encabezados h3 {
+    font-size: 18px;
+    color: #999;
+    margin-bottom: 10px;
+}
+
+
+.center {
+    -ms-flex-align: center;
+    display: flex;
+}

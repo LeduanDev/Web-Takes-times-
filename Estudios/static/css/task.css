@@ -1,0 +1,323 @@
+.ag-format-container {
+    width: 70%;
+    margin: 0 auto;
+}
+
+body {
+    /* background: url("https://static.pexels.com/photos/6663/desk-white-black-header.jpg") no-repeat center center fixed; */
+    background-size: cover;
+}
+
+.ag-courses_box {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 50px 0;
+
+}
+
+.ag-courses_item {
+    flex-basis: calc(25% - 30px);
+    margin: 0 15px 30px;
+    overflow: hidden;
+    border-radius: 28px;
+
+}
+
+.ag-courses-item_link {
+    display: block;
+    padding: 30px 20px;
+    background-color: #000000;
+    overflow: hidden;
+    position: relative;
+    font-size: small;
+}
+
+.ag-courses-item_link:hover,
+.ag-courses-item_link:hover .ag-courses-item_date {
+    text-decoration: none;
+    color: #FFF;
+}
+
+.ag-courses-item_link:hover .ag-courses-item_bg {
+    transform: scale(10);
+}
+
+.ag-courses-item_title2 {
+    min-height: 87px;
+    margin: 0 0 25px;
+    overflow: hidden;
+    font-weight: bold;
+    font-size: 25PX;
+    color: #FFF;
+    z-index: 2;
+    position: relative;
+}
+
+.ag-courses-item_title {
+    min-height: 87px;
+    margin: 0 0 25px;
+    overflow: hidden;
+    font-weight: bold;
+    font-size: 30PX;
+    color: #FFF;
+    z-index: 2;
+    position: relative;
+}
+
+
+.ag-courses-item_date-box {
+    font-size: 25x;
+    color: #FFF;
+    z-index: 2;
+    position: relative;
+}
+
+.ag-courses-item_date {
+    font-weight: bold;
+    color: #f9b234;
+    transition: color .5s ease;
+}
+
+.ag-courses-item_bg {
+    height: 128px;
+    width: 128px;
+    background-color: #4c49ea;
+    z-index: 1;
+    position: absolute;
+    top: -75px;
+    right: -75px;
+    border-radius: 50%;
+    transition: all .5s ease;
+}
+
+.ag-courses_item:nth-child(2n) .ag-courses-item_bg {
+    background-color: rgb(255, 68, 11);
+}
+
+.ag-courses_item:nth-child(3n) .ag-courses-item_bg {
+    background-color: rgb(48, 8, 206);
+}
+
+.ag-courses_item:nth-child(4n) .ag-courses-item_bg {
+    background-color: #ff2a2a;
+}
+
+.ag-courses_item:nth-child(5n) .ag-courses-item_bg {
+    background-color: #cd3e94;
+}
+
+.ag-courses_item:nth-child(6n) .ag-courses-item_bg {
+    background-color: #4c49ea;
+}
+
+.ag-courses_item:nth-child(7n) .ag-courses-item_bg {
+    background-color: #e0c214;
+}
+
+
+
+table {
+    margin: auto;
+    width: 100%;
+    border-collapse: collapse;
+    color: white;
+    font-size: 14px;
+}
+
+th,
+td {
+    border: 2px solid rgb(0, 0, 0);
+    padding: 8px;
+    text-align: left;
+}
+
+.animated-card {
+    background-color: #004EA8;
+    border-radius: 30px;
+    width: 30%;
+    text-align: center;
+}
+
+.animated-card:hover {
+    background-color: #000000;
+}
+
+.card-content {
+    padding: 10px;
+}
+
+.ag-courses-item_link {
+    text-decoration: none;
+    color: #fff;
+}
+
+.ag-courses-item_link:hover {
+    color: #fff;
+}
+
+.cprincipal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+
+    /* Ajusta el espacio entre los elementos según sea necesario */
+}
+
+.formulario {
+    background-color: white;
+    /* Aplica el color blanco al fondo de la tarjeta */
+    padding: 20px;
+    /* Añade un poco de relleno para separar el contenido del borde de la tarjeta */
+    border-radius: 10px;
+    /* Agrega bordes redondeados a la tarjeta si lo deseas */
+}
+
+/* Otros estilos existentes... */
+
+
+
+@media only screen and (max-width: 1400px) {
+    .ag-courses_item {
+        flex-basis: calc(25% - 10px);
+        /* Ajusta el porcentaje según tus necesidades */
+        margin: 0 15px 30px;
+        overflow: hidden;
+        border-radius: 28px;
+    }
+
+}   
+
+@media only screen and (max-width: 1300px) {
+
+    .ag-courses_item {
+        flex-basis: calc(33.33333% - 30px);
+        margin: 0 15px 30px;
+        overflow: hidden;
+        border-radius: 28px;
+    
+    }
+    
+}   
+
+.comentarios {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+.comments-box {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 20px 0;
+}
+
+.comments-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+h3 {
+    color: #333;
+}
+
+.comment-list {
+    list-style: none;
+    padding: 0;
+}
+
+.comment-list li {
+    margin-bottom: 10px;
+}
+
+.comment-author {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+form {
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+textarea {
+    width: 60%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #001ac3;
+    color: #fff;
+    width: 30%;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: black;
+}
+
+
+
+@media only screen and (max-width: 979px) {
+    .ag-courses_item {
+        flex-basis: calc(33.33333% - 30px);
+    }
+}
+
+@media only screen and (max-width: 639px) {
+    .ag-courses_item {
+        flex-basis: 40%;
+    }
+}
+
+/* Estilos para tabletas y iPads */
+@media only screen and (max-width: 700px) {
+    .cprincipal {
+        flex-direction: column;
+        /* Cambia la dirección del flex container a columna */
+        align-items: center;
+        /* Centra los elementos horizontalmente */
+    }
+
+    .animated-card {
+        width: 60%;
+        /* O ajusta según tus necesidades */
+    }
+
+    .card-content {
+        text-align: center;
+    }
+
+    .formulario {
+        width: 60%;
+        /* O ajusta según tus necesidades */
+    }
+}
+
+/* Estilos adicionales para pantallas más pequeñas si es necesario */
+@media only screen and (max-width: 767px) {
+    /* Agrega estilos adicionales según sea necesario */
+}
+
+
+.alert {
+    position: fixed;
+    top: 20px; /* Puedes ajustar esta distancia según tu diseño */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+}

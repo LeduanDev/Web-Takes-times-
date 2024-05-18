@@ -1,0 +1,197 @@
+{% extends "bases/base.html" %}
+{% load static %}
+{% block titulo %}{% endblock %}
+
+{% block contenido %}
+
+
+{% if show_welcome_alert %}
+<script>
+    $(document).ready(function () {
+        // Muestra la alerta solo si la variable de sesión está presente
+        Swal.fire({
+            position: 'top-mid',
+            icon: 'success',
+            title: '¡Bienvenido, {{ request.user.username }}!',
+            showConfirmButton: false,
+            timer: 1000
+        });
+    });
+</script>
+{% endif %}
+
+<link rel="stylesheet" href="{% static 'css/botones.css' %}">
+
+<section class="landing-section relative overflow-x-hidden py-8 pb-10 flex flex-col gap-1">
+
+    <div class="flex flex-col items-center">
+        <h1 class="font-heading heading-1 mb-2 max-w-[56rem] px-4 text-center text-5xl/[1.1] md:text-6xl/[1.1]">
+            Bienvenido, empieza a crear tu estudios.
+        </h1>
+        <p class="body body-large px-2 text-center text-astro-gray-100 md:px-4 max-w-3xl" style="text-wrap: balance;">
+            Astro powers the world's fastest websites, client-side web apps, dynamic API endpoints, and everything
+            in-between. </p>
+    </div>
+    <div class="mb-8 mt-4 flex w-full justify-center gap-4 sm:mb-10 md:mb-12 lg:mb-16 xl:mb-20">
+        <a href="{% url 'crear_estudio_con_actividades' %}"
+            class="animate-bounce focus:animate-none hover:animate-none inline-flex text-md font-medium bg-black mt-3 px-4 py-2 rounded-lg tracking-wide text-white">
+            <span class="ml-2">Crear estudio ✔</span>
+        </a>
+    </div>
+</section>
+
+
+
+<!-- tabla donde se muestran los estudio creaados -->
+
+
+
+<div class="flex items-center justify-center gap-x-3">
+    <h2 class="text-lg font-medium text-black">Estudios creados</h2>
+
+    <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">{{contador }}</span>
+</div>
+
+<div class="flex justify-center mt-6">
+    <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="inline-block w-full md:w-auto py-2 align-middle md:px-6 lg:px-8">
+            <div class="overflow-hidden border border-black dark:border-black md:rounded-lg">
+                <div class="overflow-auto border border-black dark:border-black md:rounded-lg h-22">
+                    <table class="min-w-full md:min-w-[600px] lg:min-w-[1100px] divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead class="sticky top-0 z-10 bg-gray-20 dark:bg-gray-800">
+                            <tr>
+                                <th scope="col"
+                                    class="py-2 px-4 text-xs font-normal text-left rtl:text-right text-gray-500 dark:text-white"> <!-- Modificación: Ajusté el padding y el texto a text-xs -->
+                                    <div class="flex items-center gap-x-3">
+                                        <span>Numero</span>
+                                    </div>
+                                </th>
+                                <th scope="col"
+                                class="px-4 py-1 text-xs font-normal text-left rtl:text-right text-gray-500 dark:text-white">
+                                <button class="flex items-center gap-x-2">
+                                    <span>Nombre</span>
+                                </button>
+                                  </th>
+
+
+                                <th scope="col"
+                                    class="px-8 py-2 text-xs font-normal text-left rtl:text-right text-gray-500 dark:text-white"> <!-- Modificación: Ajusté el padding y el texto a text-xs -->
+                                    <button class="flex items-center gap-x-2">
+                                        <span>Fecha</span>
+
+                                    </button>
+                                </th>
+                                <th scope="col"
+                                    class="px-4 py-2 text-xs font-normal text-left rtl:text-right text-gray-500 dark:text-white"> <!-- Modificación: Ajusté el padding y el texto a text-xs -->
+                                    <button class="flex items-center gap-x-2">
+                                        <span>Numero de actividades</span>
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+                                        </svg>
+                                    </button>
+                                </th>
+
+                                <th scope="col"
+                                    class="px-4 py-2 text-xs font-normal text-left rtl:text-right text-gray-500 dark:text-white"> <!-- Modificación: Ajusté el padding y el texto a text-xs -->
+                                    <button class="flex items-center gap-x-2">
+                                        <span>Acciones</span>
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+                                        </svg>
+                                    </button>
+
+                            </tr>
+                        </thead>
+
+
+
+                        <tbody class="bg-white divide-y divide-gray-400  dark:text-black ">
+                            {% for estudio in estudios %}
+
+                            <tr>
+                                <td class="px-4 py-2 text-xs font-medium text-black whitespace-nowrap">
+                                    <div class="inline-flex items-center gap-x-3">
+
+                                        <div class="flex items-center gap-x-2">
+                                            <div>
+                                                <h2 class="font-medium text-gray-800 ">{{numero_vuelta|add:forloop.counter }}</h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-8 py-2 text-xs dark:text-black whitespace-nowrap overflow-hidden max-w-[200px]">
+                                    <span class="inline-block max-w-full overflow-hidden overflow-ellipsis">{{ estudio.nombre }}</span>
+                                </td>
+                                
+                                <!-- Modificación: Ajusté el padding y el texto a text-xs -->
+                                </td>
+                                <td class="px-8 py-2 text-xs dark:text-black whitespace-nowrap">{{ estudio.fecha }}</td> <!-- Modificación: Ajusté el padding y el texto a text-xs -->
+                                <td class="px-4 py-2 text-xs dark:text-black whitespace-nowrap">
+                                    {{estudio.actividades_count}} </td>
+
+                                <td class="px-4 py-2 text-xs whitespace-nowrap"> <!-- Modificación: Ajusté el padding y el texto a text-xs -->
+                                    <div class="flex items-center gap-x-6">
+                                        <a data-url="{% url 'delete' estudio.id_estudio %}"
+                                            class="delete-button  text-gray-500 transition-colors duration-200 dark:hover:text-red-500 dark:text-black hover:text-red-500 focus:outline-none">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25
+                                                    0 0 1 -2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                                </svg>
+                                                </a>                                    <a href="{% url 'actualizar_estudio' estudio.id_estudio %}"
+                                                class="text-gray-500 transition-colors duration-200 dark:hover:text-yellow-500 dark:text-black hover:text-yellow-500 focus:outline-none">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                                </svg>
+                                            </a>
+        
+                                            <a href="{% url 'tareas' estudio.id_estudio %}"
+                                                class="text-gray-500 transition-colors duration-200 dark:hover:text-red-500 dark:text-black hover:text-red-500 focus:outline-none">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                    stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path d="M7 4v16l13 -8z" />
+                                                </svg>
+                                            </a>
+        
+                                            <a href="{% url 'copiar_estudio' estudio.id_estudio %}"
+                                                class="text-gray-500 transition-colors duration-200 dark:hover:text-red-500 dark:text-black hover:text-red-500 focus:outline-none">
+        
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                    stroke-linecap="round" stroke-linejoin="round" class="size-5">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path
+                                                        d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" />
+                                                    <path
+                                                        d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+ </div>
+
+
+
+
+<script src="{% static 'js/alertas.js' %}"></script>
+
+{% endblock %}

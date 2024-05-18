@@ -1,0 +1,150 @@
+/*:::::Pie de Pagina*/
+
+.pie-pagina .grupo-1 {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 50px;
+    padding: 45px 0px;
+}
+
+.pie-pagina .grupo-1 .box figure {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pie-pagina .grupo-1 .box figure img {
+    width: 250px;
+}
+
+.pie-pagina .grupo-1 .box h2 {
+    color: #000000; 
+    margin-bottom: 25px;
+    font-size: 20px;
+}
+
+.pie-pagina .grupo-1 .box p {
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+.pie-pagina .grupo-1 .red-social a {
+    display: inline-block;
+    text-decoration: none;
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    color: #000000;
+    margin-right: 10px;
+    background-color: #004EA8;
+    text-align: center;
+    transition: all 300ms ease;
+}
+
+.pie-pagina .grupo-1 .red-social a:hover {
+    color: aqua;
+}
+
+.pie-pagina .grupo-2 {
+    background-color: #004EA8;
+    padding: 15px 10px;
+    text-align: center;
+    color: #fff;
+}
+
+.pie-pagina .grupo-2 small {
+    font-size: 15px;
+}
+
+@media screen and (max-width:800px) {
+    .pie-pagina .grupo-1 {
+        width: 90%;
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: 30px;
+        padding: 35px 0px;
+    }
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* Establece el alto mínimo de la vista al 100% de la altura del viewport */
+    margin: 0;
+ 
+}
+
+.pie-pagina {
+    margin-top: auto;
+    /* Empuja el pie de página hacia abajo para ocupar el espacio restante */
+}
+
+
+svg {
+    width: 150px;
+    height: 150px;
+}
+
+/* SMOKE */
+#smoke-1 {
+    stroke-dasharray: 0, 10;
+    animation: smoke 6s ease infinite;
+}
+
+#smoke-2 {
+    stroke-dasharray: 0, 10;
+    animation: smoke 6s 0.5s ease infinite;
+}
+
+@keyframes smoke {
+    0% {
+        stroke-dasharray: 0, 10;
+    }
+
+    50% {
+        stroke-dasharray: 10, 0;
+    }
+
+    100% {
+        stroke-dasharray: 10, 0;
+        opacity: 0;
+    }
+}
+
+/* WRITING */
+#line-1 {
+    opacity: 0;
+    animation: writing 0.5s linear forwards;
+}
+
+#line-2 {
+    opacity: 0;
+    animation: writing 0.5s 1s linear forwards;
+}
+
+#line-3 {
+    opacity: 0;
+    animation: writing 0.5s 1.5s linear forwards;
+}
+
+#line-4 {
+    opacity: 0;
+    animation: writing 0.5s 2s linear forwards;
+}
+
+@keyframes writing {
+    0% {
+        width: 0px;
+        opacity: 1;
+    }
+
+    100% {
+        width: 14px;
+        opacity: 1;
+    }
+}

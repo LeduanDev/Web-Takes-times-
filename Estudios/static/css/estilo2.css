@@ -1,0 +1,36 @@
+.tabla {
+    text-align: center;
+    background-color: #f0e2e2;
+    /* Cambia el color al que desees */
+    color: rgb(217, 93, 93);
+    /* Cambia el color del texto a blanco para mayor contraste */
+  }
+
+  .boton {
+    text-align: center;
+  }
+
+  .table-bordered th,
+  .table-bordered td {
+    border: 1px solid #e10404;
+    /* Cambia el color al que desees */
+  }
+
+
+  table {
+    margin: auto;
+    width: 80%;
+    /* Ajusta el ancho de la tabla según tus necesidades */
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+}
+
+#contador_columna {
+    width: 20%;
+}

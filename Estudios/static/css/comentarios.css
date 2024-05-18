@@ -1,0 +1,47 @@
+.mi-formulario {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1px;
+
+  
+}
+
+.mi-textarea {
+    /* Agrega estilos para el campo de texto */
+    /* Por ejemplo: */
+    border: 1px solid #000000;
+    padding: 5px;
+    width: 400px;
+    height: 8rcap;
+   
+}
+
+.mi-boton {
+    width: 30px;
+    /* Ajusta el ancho del botón según tus necesidades */
+    margin-top: 10px;
+    align-items: center;
+    color: #004EA8;
+    
+}
+
+.mi-columna {
+    /* Ajusta el ancho de la columna según tus necesidades */
+    width: 500px;
+    /* Por ejemplo */
+}
+
+
+.mi-contenedor {
+    display: flex;
+    justify-content: space-between;
+    /* Ajusta según sea necesario */
+    align-items: center;
+    gap: 35px;
+    /* Ajusta según sea necesario */
+}
+
+
+

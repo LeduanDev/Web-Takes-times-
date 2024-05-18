@@ -1,0 +1,135 @@
+*,
+*:before,
+*:after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+}
+
+h1{
+    font-size: 30px;
+    text-align: center;
+    color: #1c093c;
+}
+p{
+    position: relative;
+    margin: auto;
+    width: 100%;
+    text-align: center;
+    color: #606060;
+    font-size: 14px;
+    font-weight: 400;
+}
+form{
+    width: 100%;
+    position: relative;
+    margin: 30px auto 0 auto;
+}
+.row {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 20px; /* Solo un valor para espaciado vertical y horizontal */
+    margin-bottom: 20px;
+}
+
+label{
+    color: #1c093c;
+    font-size: 14px;
+}
+textarea,
+input{
+    width: 100%;
+    font-weight: 400;
+    padding: 8px 10px;
+    border-radius: 5px;
+    border: 1.2px solid #c4cae0;
+    margin-top: 5px;
+}
+textarea{
+    resize: none;
+}
+textarea:focus,
+input:focus{
+    outline: none;
+    border-color: #6f6df4;
+}
+.boton{
+    border: none;
+    padding: 10px 20px;
+    background: linear-gradient(
+        130deg,
+        #3367d8,
+        #1f18f5
+    );
+    color: #ffffff;
+    border-radius: 3px;
+    
+    
+}
+
+.boton2{
+    border: none;
+    padding: 10px 20px;
+    background: linear-gradient(
+        130deg,
+        #3367d8,
+        #1f18f5
+    );
+    color: #ffffff;
+    border-radius: 3px;
+
+    width: 30%;
+    
+}
+
+.centrar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea,
+select {
+    width: 100%;
+    font-weight: 400;
+    padding: 8px 10px;
+    border-radius: 5px;
+    border: 1.2px solid #c4cae0;
+    margin-top: 5px;
+}
+
+/* Estilos para cuando están enfocados */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #ffe30f;
+}
+
+label {
+    color: #1c093c;
+    font-size: 14px;
+    display: block; /* Asegura que cada etiqueta esté en su propia línea */
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    font-weight: 400;
+    padding: 8px 10px;
+    border-radius: 5px;
+    border: 1.2px solid #c4cae0;
+    margin-top: 5px;
+    box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+}

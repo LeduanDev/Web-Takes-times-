@@ -1,0 +1,198 @@
+/* Elementos de bloque */
+article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
+    display: block;
+}
+
+/* Elementos de audio, canvas, y video */
+audio, canvas, video {
+    display: inline-block;
+}
+
+/* Ocultar audio sin controles */
+audio:not([controls]) {
+    display: none;
+    height: 0;
+}
+
+/* Ocultar elementos */
+[hidden] {
+    display: none;
+}
+
+/* Ajustes generales de HTML */
+html {
+    font-family: sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Ajustes generales de cuerpo */
+body {
+    margin: 0;
+}
+
+/* Estilos de enlaces enfocados */
+a:focus {
+    outline: thin dotted;
+}
+
+/* Estilos de enlaces activos y al pasar el ratón */
+a:active, a:hover {
+    outline: 0;
+}
+
+/* Estilos de encabezado */
+h1 {
+    font-size: 2em;
+    margin: 0.67em 0;
+}
+
+/* Definición abreviada */
+abbr[title] {
+    border-bottom: 1px dotted;
+}
+
+/* Estilos de texto en negrita */
+b, strong {
+    font-weight: bold;
+}
+
+/* Definición de elemento de definición */
+dfn {
+    font-style: italic;
+}
+
+/* Separador horizontal */
+hr {
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    height: 0;
+}
+
+/* Marcador de texto resaltado */
+mark {
+    background: #ff0;
+    color: #000;
+}
+
+/* Estilos de código, teclas, preformatos y ejemplos */
+code, kbd, pre, samp {
+    font-family: monospace, serif;
+    font-size: 1em;
+}
+
+/* Preformato */
+pre {
+    white-space: pre-wrap;
+}
+
+/* Citas */
+q {
+    quotes: "\201C" "\201D" "\2018" "\2019";
+}
+
+/* Tamaño de fuente pequeño */
+small {
+    font-size: 80%;
+}
+
+/* Subíndice y superíndice */
+sub, sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+sup {
+    top: -0.5em;
+}
+
+sub {
+    bottom: -0.25em;
+}
+
+/* Estilos de imagen */
+img {
+    border: 0;
+}
+
+/* SVG */
+svg:not(:root) {
+    overflow: hidden;
+}
+
+/* Estilos de figura */
+figure {
+    margin: 0;
+}
+
+/* Definición de campo */
+fieldset {
+    border: 1px solid #c0c0c0;
+    margin: 0 2px;
+    padding: 0.35em 0.625em 0.75em;
+}
+
+/* Leyenda del campo */
+legend {
+    border: 0;
+    padding: 0;
+}
+
+/* Estilos de botón, entrada, selección y área de texto */
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: 100%;
+    margin: 0;
+}
+
+button, input {
+    line-height: normal;
+}
+
+button, select {
+    text-transform: none;
+}
+
+button, html input[type="button"], input[type="reset"], input[type="submit"] {
+    -webkit-appearance: button;
+    cursor: pointer;
+}
+
+button[disabled], html input[disabled] {
+    cursor: default;
+}
+
+input[type="checkbox"], input[type="radio"] {
+    box-sizing: border-box;
+    padding: 0;
+}
+
+input[type="search"] {
+    -webkit-appearance: textfield;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+button::-moz-focus-inner, input::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+/* Estilos de área de texto */
+textarea {
+    overflow: auto;
+    vertical-align: top;
+}
+
+/* Estilos de tabla */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}

@@ -1,0 +1,56 @@
+#contador_columna {
+    width: 20%;
+}
+
+#exportar-excel {
+    padding: 5px;
+    /* Ajusta el relleno según sea necesario */
+}
+
+#exportar-excel img {
+    width: 70px;
+    /* Ajusta el ancho de la imagen según sea necesario */
+    height: 70px;
+    /* Ajusta la altura de la imagen según sea necesario */
+    margin-right: 5px;
+    /* Espaciado a la derecha de la imagen */
+}
+
+button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: transform 0.2s;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+
+#botones-container {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#botones-container button {
+    margin: 0 10px;
+    padding: 5px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Media queries para estilos responsivos */
+@media (max-width: 600px) {
+    #botones-container {
+        flex-direction: column;
+    }
+
+    #botones-container button {
+        margin: 5px 0;
+    }
+}

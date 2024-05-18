@@ -1,0 +1,102 @@
+{% extends "bases/base.html" %}
+{% load static %}
+{% block titulo %}{% endblock %}
+{% block contenido %}
+<link rel="stylesheet" href="{% static 'css/estilos3.css' %}?v=1">
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<div class="container">
+    <div id="contenedor-principal" class="mb-4">
+        <h2>Editar tu estudio</h2>
+        <!-- Estudio Form -->
+        <form method="post" action="{% url 'actualizar_estudio' estudio.id_estudio %}" id="estudio-form" class="w-100">
+            {% csrf_token %}
+
+            <!-- {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %} -->
+            <label for="estudio_nombre">Nombre del Estudio:</label>
+            <input type="text" name="nombre" id="estudio_nombre" class="form-control mb-2" value="{{ estudio.nombre }}"
+                required>
+            <label for="estudio_descripcion">Descripción del Estudio:</label>
+            <textarea name="descripcion" id="estudio_descripcion" class="form-control mb-2"
+                required>{{ estudio.descripcion }}</textarea>
+            <label for="estudio_fechas">Fecha</label>
+            <input type="date" name="fecha" id="estudio_fecha" class="form-control mb-2"
+                value="{{ estudio.fecha|date:'Y-m-d' }}" required>
+            <label for="estudio_maquina">Maquina</label>
+            <select name="maquina" id="estudio_maquina" class="form-control" required>
+                {% for m in maquina %}
+                <option value="{{ m.id_maquina }}">{{ m.nombre }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="estudio_area">Área</label>
+            <select name="area" id="estudio_area" class="form-control" required>
+                {% for a in area %}
+                <option value="{{ a.id}}">{{ a.nombre }}</option>
+                {% endfor %}
+            </select>
+
+            <input type="submit" class="btn btn-primary" id="exampleFormControlInput1" value="Actualizar Estudio">
+        </form>
+
+        {% if not estudio.tiempo_fin %}
+        <a class="btn btn-success" href="{% url 'crear_actividad_estudio' estudio.id_estudio %}" role="button">Crear
+            Actividad</a>
+        {% endif %}
+
+    </div>
+</div>
+
+<div class="container">
+    <h1 class="mb-4">Actividades {{estudio.nombre}}</h1>
+    <!-- Tabla de Actividades -->
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Tipo</th>
+                    <th>Acción</th>
+                    <th>Acción 2</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for actividad in actividades %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ actividad.nombre }}</td>
+                    <td>{{ actividad.descripcion }}</td>
+                    <td>{{ actividad.tipo }}</td>
+                    <td>
+                        <form method="post" action="{% url 'eliminar_actividad' actividad.id %}">
+                            {% csrf_token %}
+                            <input type="submit" class="btn btn-danger" value="Eliminar">
+                        </form>
+                    </td>
+                    <td> <a class="btn btn-primary" href="{% url 'editar_actividad' actividad.id %}"
+                            role="button">Editar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Otras secciones del formulario... -->
+
+<script src="{% static 'js/editarForm.js' %}"></script>
+<script src="{% static 'js/mover.js' %}"></script>
+{% endblock %}

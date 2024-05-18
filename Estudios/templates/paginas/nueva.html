@@ -1,0 +1,60 @@
+{% extends "bases/base.html" %}
+{% load static %}
+
+{% block titulo %}Crear Actividad{% endblock %}
+
+{% block contenido %}
+<link rel="stylesheet" href="{% static 'css/editar.css' %}?v=1">
+
+
+<div id="contenedor-principal">
+
+  {% if form.errors %}
+  <div class="alert alert-danger">
+    <strong>Error:</strong> Hubo un problema con el formulario. Por favor, revisa los errores.
+  </div>
+  {% endif %}
+
+  <div class="form-container">
+    <div class="card">
+      <div class="card-image">
+        <h2 class="card-heading">
+          Crear Actividad
+          <small>Datos de tu actividad nueva !</small>
+        </h2>
+      </div>
+      <form class="card-form" method="post" action="{% url 'crear_actividad_estudio' estudio_id %}" id="actividad-form">
+        {% csrf_token %}
+        <div class="input">
+          <input type="text" class="input-field" name="nombre" id="actividad_nombre" value="{{ actividad.nombre }}" />
+          <label class="input-label">Nombre de la Actividad</label>
+        </div>
+        <div class="input">
+          <textarea name="descripcion" class="input-field" id="actividad_descripcion"
+            required>{{ actividad.descripcion }}</textarea>
+          <label class="input-label">Descripción de la Actividad</label>
+        </div>
+
+        <div class="input">
+         
+          <select name="tipo" id="actividad_tipo" class="form-control" required>
+            {% for t in tipo %}
+            <option value="{{ t.id_tipo }}">{{ t.nombre }}</option>
+            {% endfor %}
+          </select>
+      
+        </div>
+
+        <div class="input">
+          <label for="actividad_color">Color:</label>
+          <input type="color" name="color" id="actividad_color">
+        </div>
+
+        <div class="action">
+          <button class="action-button">Crear actividad</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

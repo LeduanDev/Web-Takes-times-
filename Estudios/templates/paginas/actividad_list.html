@@ -1,0 +1,139 @@
+{% extends "bases/base.html" %}
+{% load static %}
+{% load custom_filters %}
+{% block titulo %}{% endblock %}
+{% block contenido %}
+<link rel="stylesheet" href="{% static 'css/logoss.css' %}?v=1">
+
+
+
+<div id="botones-container">
+   <button id="deseleccionar-todos">
+   <img src="{% static 'img/borrar.png' %}" alt="Exportar a Excel">
+   <span>Deseleccionar Todos</span>
+   </button>
+   <button id="seleccionar-todos">
+   <img src="{% static 'img/seleccionar.png' %}" alt="Exportar a Excel">
+   <span>Seleccionar Todos</span>
+   </button>
+   <button id="exportar-excel">
+   <img src="{% static 'img/sobresalir.png' %}" alt="Exportar a Excel">
+   <span>Exportar Excel</span>
+   </button>
+</div>
+
+
+<div class="flex justify-center mt-6">
+   <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+       <div class="inline-block w-full md:w-auto py-2 align-middle md:px-6 lg:px-8">
+           <div class="overflow-hidden border border-black dark:border-black md:rounded-lg">
+               <div class="overflow-auto border border-black dark:border-black md:rounded-lg h-22">
+                   <table class="min-w-full md:min-w-[600px] lg:min-w-[1100px] divide-y divide-gray-200 dark:divide-gray-700">
+                       <thead class="sticky top-0 z-10 bg-gray-20 dark:bg-gray-800">
+                           <tr>
+                               <th scope="col"
+                                   class="py-2 px-4 text-xs font-normal text-left rtl:text-right text-gray-500 dark:text-white"> <!-- Modificación: Ajusté el padding y el texto a text-xs -->
+                                   <div class="flex items-center gap-x-3">
+                                       <span>✔</span>
+                                   </div>
+                               </th>
+                               <th scope="col"
+                               class="px-4 py-1 text-xs font-normal text-left rtl:text-right text-gray-500 dark:text-white">
+                               <button class="flex items-center gap-x-2">
+                                   <span>#</span>
+                               </button>
+                                 </th>
+
+
+                               <th scope="col"
+                                   class="px-8 py-2 text-xs font-normal text-left rtl:text-right text-gray-500 dark:text-white"> <!-- Modificación: Ajusté el padding y el texto a text-xs -->
+                                   <button class="flex items-center gap-x-2">
+                                       <span>Estudio</span>
+
+                                   </button>
+                               </th>
+                               <th scope="col"
+                                   class="px-8 py-2 text-xs font-normal text-left rtl:text-right text-gray-500 dark:text-white"> <!-- Modificación: Ajusté el padding y el texto a text-xs -->
+                                   <button class="flex items-center gap-x-2">
+                                       <span>Descripción</span>
+
+                                   </button>
+                               </th>
+                               <th scope="col"
+                                   class="px-8 py-2 text-xs font-normal text-left rtl:text-right text-gray-500 dark:text-white"> <!-- Modificación: Ajusté el padding y el texto a text-xs -->
+                                   <button class="flex items-center gap-x-2">
+                                       <span>Maquina</span>
+                                   </button>
+                               </th>
+                               <th scope="col"
+                               class="px-8 py-2 text-xs font-normal text-left rtl:text-right text-gray-500 dark:text-white"> <!-- Modificación: Ajusté el padding y el texto a text-xs -->
+                               <button class="flex items-center gap-x-2">
+                                   <span>Área</span>
+                               </button>
+                           </th>
+
+                           </tr>
+                       </thead>
+
+
+
+                       <tbody class="bg-white divide-y divide-gray-400  dark:text-black ">
+                           {% for estudio in estudios %}
+
+                           <tr>
+
+                              
+                              <td class="px-4 py-2 text-xs font-medium text-black whitespace-nowrap">
+                                 <div class="inline-flex items-center gap-x-3">
+
+                                     <div class="flex items-center gap-x-2">
+                                         <div>
+                                          <input type="checkbox" class="seleccionar-registro"
+                                          data-actividad-id="{{ estudio.id_estudio }}">
+                                         </div>
+                                     </div>
+                                 </div>
+                             </td>
+
+                              <td class="px-4 py-2 text-xs font-medium text-black whitespace-nowrap">
+                                 <div class="inline-flex items-center gap-x-3">
+
+                                    <div class="flex items-center gap-x-2">
+                                       <div>
+                                          <h2 class="font-medium text-gray-800 ">{{numero_vuelta|add:forloop.counter }}</h2> 
+                                       </div>
+                                    </div>
+                                 </div>
+                              </td>
+
+                              <td class="px-8 py-2 text-xs dark:text-black whitespace-nowrap overflow-hidden max-w-[200px]">
+                                 <span class="inline-block max-w-full overflow-hidden overflow-ellipsis">{{ estudio.nombre }}</span>
+                              </td>
+
+                              <td class="px-8 py-2 text-xs dark:text-black whitespace-nowrap overflow-hidden max-w-[200px]">
+                                 <span class="inline-block max-w-full overflow-hidden overflow-ellipsis">{{ estudio.descripcion}}</span>
+                              </td>
+                               
+                               <!-- Modificación: Ajusté el padding y el texto a text-xs -->
+                               </td>
+                               <td class="px-8 py-2 text-xs dark:text-black whitespace-nowrap">{{estudio.area.nombre }}</td> <!-- Modificación: Ajusté el padding y el texto a text-xs -->
+                               <td class="px-4 py-2 text-xs dark:text-black whitespace-nowrap">{{estudio.maquina.nombre}} </td>
+
+
+                               </tr>
+                               {% endfor %}
+                           </tbody>
+                       </table>
+                   </div>
+               </div>
+           </div>
+       </div>
+</div>
+
+
+
+
+
+
+<script src="{% static 'js/excel_data.js' %}"></script>
+{% endblock %}

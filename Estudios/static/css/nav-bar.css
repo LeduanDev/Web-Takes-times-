@@ -1,0 +1,286 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+i {
+  margin-right: 10px;
+}
+
+/*----------bootstrap-navbar-css------------*/
+.navbar-logo {
+  padding: 15px;
+  color: #fff;
+}
+
+.navbar-mainbg {
+  background-color: #004EA8;
+  padding: 0px;
+}
+
+#navbarSupportedContent {
+  overflow: hidden;
+  position: relative;
+}
+
+#navbarSupportedContent ul {
+  padding: 0px;
+  margin: 0px;
+}
+
+#navbarSupportedContent ul li a i {
+  margin-right: 10px;
+}
+
+#navbarSupportedContent li {
+  list-style-type: none;
+  float: left;
+}
+
+#navbarSupportedContent ul li a {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  font-size: 15px;
+  display: block;
+  padding: 20px 20px;
+  transition-duration: 0.6s;
+  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  position: relative;
+}
+
+#navbarSupportedContent ul li a:hover {
+  color: rgb(255, 255, 0);
+  /* Cambia a tu color amarillo deseado */
+}
+
+#navbarSupportedContent>ul>li.active>a {
+  color: #004EA8;
+  background-color: transparent;
+  transition: all 0.7s;
+}
+
+#navbarSupportedContent a:not(:only-child):after {
+  content: "\f105";
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  font-size: 14px;
+  display: inline-block;
+  padding-right: 3px;
+  vertical-align: middle;
+  font-weight: 900;
+  transition: 0.5s;
+}
+
+#navbarSupportedContent .active>a:not(:only-child):after {
+  transform: rotate(90deg);
+}
+
+.hori-selector {
+  display: inline-block;
+  position: absolute;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  transition-duration: 0.6s;
+  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  background-color: #fff;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  margin-top: 10px;
+}
+
+.hori-selector .right,
+.hori-selector .left {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background-color: #fff;
+  bottom: 10px;
+}
+
+.hori-selector .right {
+  right: -25px;
+}
+
+.hori-selector .left {
+  left: -25px;
+}
+
+.hori-selector .right:before,
+.hori-selector .left:before {
+  content: '';
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #004EA8;
+}
+
+.hori-selector .right:before {
+  bottom: 0;
+  right: -25px;
+}
+
+.hori-selector .left:before {
+  bottom: 0;
+  left: -25px;
+}
+
+
+@media(min-width: 996px) {
+  .navbar-expand-custom {
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+  }
+
+  .navbar-expand-custom .navbar-nav {
+    -ms-flex-direction: row;
+    flex-direction: row;
+  }
+
+  .navbar-expand-custom .navbar-toggler {
+    display: none;
+  }
+
+  .navbar-expand-custom .navbar-collapse {
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -ms-flex-preferred-size: auto;
+    flex-basis: auto;
+  }
+}
+
+
+@media (max-width: 996px) {
+  #navbarSupportedContent ul li a {
+    padding: 12px 30px;
+  }
+
+  .hori-selector {
+    margin-top: 0px;
+    margin-left: 10px;
+    border-radius: 0;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+  }
+
+  .hori-selector .left,
+  .hori-selector .right {
+    right: 10px;
+  }
+
+  .hori-selector .left {
+    top: -25px;
+    left: auto;
+  }
+
+  .hori-selector .right {
+    bottom: -25px;
+  }
+
+  .hori-selector .left:before {
+    left: -25px;
+    top: -25px;
+  }
+
+  .hori-selector .right:before {
+    bottom: -25px;
+    left: -25px;
+  }
+}
+
+/* Puedes ajustar el tamaño según tus necesidades */
+.logo-img {
+  height: 30X;
+  width: 230PX;
+  margin-right: 20px;
+  /* Puedes ajustar el espacio a la derecha de la imagen según tus necesidades */
+  margin-left: 40px;
+  /* Agrega un margen a la izquierda si es necesario */
+}
+
+
+
+#navbarSupportedContent ul {
+  margin-right: 20px;
+  /* Puedes ajustar el valor según tus necesidades */
+}
+
+/* Alinea los ítems del navbar a la derecha */
+#navbarSupportedContent {
+  justify-content: flex-end;
+}
+
+/* Ajusta el espacio entre los ítems */
+#navbarSupportedContent ul li {
+  margin-left: 15px;
+  /* Puedes ajustar el valor según tus necesidades */
+}
+
+/* Ajusta el espacio entre los íconos y el texto en los ítems */
+#navbarSupportedContent ul li a i {
+  margin-right: 5px;
+  /* Puedes ajustar el valor según tus necesidades */
+}
+
+/* Ajusta el espacio entre el ícono y el texto después de hacer clic */
+#navbarSupportedContent a:not(:only-child):after {
+  right: 15px;
+  /* Puedes ajustar el valor según tus necesidades */
+}
+
+.navbar-toggler img {
+  width: 45px;
+}
+.navbar-toggler {
+
+  float: right;
+  width: fit-content;
+  /* Espaciado a la derecha de la imagen */
+}
+
+
+/* Añade las siguientes reglas a tu archivo CSS */
+
+.navbar-nav {
+  animation: fadeInRight 0.5s ease-in-out;
+}
+
+.nav-item {
+  opacity: 0;
+  animation: fadeInUp 0.5s forwards;
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.navbar.fixed-top {
+
+  width: 100%;
+  top: 0;
+  z-index: 1000; /* Ajusta el z-index según sea necesario */
+}

@@ -1,0 +1,71 @@
+Estilos para la tabla
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  table, th, td {
+    border: 1px solid #ddd;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: left;
+  }
+  
+  /* Estilos para el botón */
+  button[type="submit"] {
+    background-color: #3207f1;
+    color: rgb(255, 255, 255);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #000000;
+  }
+  
+  /* Estilos para los enlaces de descarga */
+  a {
+    background-color: #f2f2f2;
+    color: #333;
+    padding: 8px 12px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  a:hover {
+    background-color: #ddd;
+  }
+  
+  /* Estilos para el encabezado */
+  h2 {
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  /* Estilos para el formulario */
+  form {
+    margin-bottom: 20px;
+  }
+  
+  /* Estilos para la fila del encabezado de la tabla */
+  thead {
+    background-color: #2400ee;
+    color: rgb(255, 255, 255);
+  }
+  
+  /* Estilos para las celdas de fecha */
+  td:nth-child(3) {
+    min-width: 120px;
+  }
+  
+  /* Estilos para el contenedor principal */
+  .container {
+    margin: 20px;
+  }
+  

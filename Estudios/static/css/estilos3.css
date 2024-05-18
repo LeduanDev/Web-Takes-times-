@@ -1,0 +1,148 @@
+/* Estilos para el contenedor principal */
+#contenedor-principal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 2px solid #cccccc;
+    border-radius: 10px;
+    transition: border 0.3s ease;
+    height: auto;
+    /* Ajusta la altura según tus necesidades */
+    width: 50%;
+    /* Ajusta la anchura según tus necesidades */
+    max-width: 800px;
+    /* Establece un máximo para evitar que se haga demasiado ancho */
+    margin: 0 auto;
+    /* Centra el contenedor horizontalmente */
+}
+
+#contenedor-principal:hover {
+    border-color: #3a06f7;
+}
+
+/* Estilos para el formulario de estudio */
+#estudio-form {
+    margin-bottom: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilos para los labels en el formulario de estudio */
+#estudio-form label {
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+/* Estilos para los inputs en el formulario de estudio */
+#estudio-form input,
+#estudio-form textarea,
+#estudio-form select {
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    width: 100%;
+    /* Ajusta el ancho al 100% para ocupar todo el contenedor */
+}
+
+/* Estilos para el botón de Crear Actividad */
+#crear-actividad-btn {
+    padding: 10px;
+    background-color: #3a06f7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+}
+
+#crear-actividad-btn:hover {
+    background-color: #0c08ec;
+}
+
+/* Estilos para el contenedor del formulario de actividad */
+#actividad-form-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    display: none;
+    z-index: 1000;
+    width: 500px;
+    border: 2px solid #0d2cd8;
+    transition: border 0.3s ease;
+}
+
+#actividad-form-container:hover {
+    border-color: #3a06f7;
+}
+
+/* Estilos para el botón de cerrar ("x") */
+#cerrar-actividad-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    background: none;
+    border: none;
+    color: #333;
+}
+
+#cerrar-actividad-btn:hover {
+    color: #f00;
+}
+
+/* Estilos para la lista de actividades */
+#actividades-list {
+    list-style: none;
+    padding: 0;
+}
+
+#actividades-list li {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#actividades-list button {
+    background-color: #f00;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 5px;
+    margin-left: 8px;
+    transition: background-color 0.3s ease;
+}
+
+#actividades-list button:hover {
+    background-color: #d00;
+}
+
+/* Estilos para la tabla de actividades */
+.table {
+    overflow-y: auto;
+    max-height: 300px;
+    /* Ajusta la altura máxima según tus necesidades */
+}
+
+/* Estilos para el formulario de estudio */
+#estudio-form {
+    margin-bottom: 20px;
+    /* Ajusta el margen según tus necesidades */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
