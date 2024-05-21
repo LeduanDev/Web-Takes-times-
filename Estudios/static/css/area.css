@@ -1,91 +1,31 @@
-:after,
-:before {
-    box-sizing: border-box;
-}
-
-img {
-    max-width: 100%;
-    max-height: 100%;
-    display: block;
-}
-
-.card {
-    margin: 2rem auto;
+.container {
     display: flex;
-    flex-direction: column;
-    max-width: 425px;
-    background-color: #FFF;
-    border-radius: 20px;
-    box-shadow: 0 10px 20px 0 rgba(#999, .25);
-    padding: 2rem 1rem 0;
-    width: 100%;
-    max-width: 300px;
-    align-items: center;
-}
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+  }
 
-.card-image {
-    border-radius: 20px;
-    overflow: hidden;
-    height: auto;
-    padding-bottom: 100%;
-    background-image: url('https://th.bing.com/th/id/OIP.XesqXqYOLnHaHkCEFGwKqQHaHa?rs=1&pid=ImgDetMain');
-    background-repeat: no-repeat;
-    background-size: cover;
-    /* Cambiado a 'cover' */
-    background-position: 30% 25%;
-    position: relative;
-}
-
-
-/* Estilo base para tablas más compactas */
-.compact-table {
-    font-size: 15px;
-    /* Reduzco el tamaño de la fuente */
-    width: 100%;
-    margin-bottom: 40px;
-}
-
-.table-responsive {
-    max-height: 300px;
-    /* Ajusta según tus necesidades */
-    overflow-y: auto;
-}
-
-.table-responsive tbody tr {
-    line-height: 1.2;
-    /* Reduzco el espacio entre líneas */
-}
-
-.table-responsive td,
-.table-responsive th {
-    padding: 8px;
-    max-width: 100%;
-    /* Permito que las celdas se expandan según el contenido */
-    word-break: break-word;
-    /* Rompo palabras largas para evitar desbordamientos */
-}
-
-/* Media query para dispositivos pequeños (por ejemplo, teléfonos) */
-@media (max-width: 767px) {
-    .compact-table {
-        width: 100%;
-        margin-bottom: 20px;
-        /* Ajusta el margen inferior para dispositivos pequeños */
+  /* Media query para dispositivos con un ancho máximo de 768px (tablets y móviles) */
+  @media screen and (max-width: 768px) {
+    .container {
+      flex-direction: column;
+      /* Cambiar a una sola columna */
+      align-items: center;
     }
-}
+  }
 
-/* Media query para dispositivos medianos (por ejemplo, tabletas) */
-@media (min-width: 800px) and (max-width: 970px) {
-    .compact-table {
-        width: 80%;
+  /* Estilos para las tablas */
+  table {
+    width: calc(100% / 3 - 20px);
+    /* Ajustar el ancho para mantener tres tablas alineadas */
+    margin-bottom: 20px;
+    /* Agregar un poco de espacio entre tablas */
+  }
+
+  /* Media query para dispositivos con un ancho máximo de 768px (tablets y móviles) */
+  @media screen and (max-width: 768px) {
+    table {
+      width: 100%;
+      /* Establecer el ancho completo en dispositivos más pequeños */
     }
-
-    .table-responsive {
-        max-height: none;
-    }
-}
-
-/* Media query para dispositivos grandes (por ejemplo, pantallas de escritorio) */
-@media (min-width: 992px) {
-    /* Puedes ajustar el estilo según tus necesidades para dispositivos grandes */
-}
+  }

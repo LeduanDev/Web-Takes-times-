@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Muestra la alerta SweetAlert2
             Swal.fire({
-                title: '¿Estás seguro de elinar el estudio?',
+                title: '¿Estás seguro de eliminar el estudio?',
                 text: '¡No podrás revertir esto!',
                 icon: 'warning',
                 showCancelButton: true,

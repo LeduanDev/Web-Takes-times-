@@ -119,14 +119,18 @@ class MaquinaForm(forms.ModelForm):
         model = Maquina
         fields = ['nombre']
         exclude = ['usuario']
-
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class': 'w-full h-8 border-black rounded-md'}),
+        }
 
 class AreaForm(forms.ModelForm):
     class Meta:
         model = Area
         fields = ['nombre']
         exclude = ['usuario']
-        
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class': 'w-full h-8 border-black rounded-md'}),
+        }      
 
 
 class TipoForm(forms.ModelForm):
@@ -134,7 +138,9 @@ class TipoForm(forms.ModelForm):
         model = Tipo
         fields = ['nombre']
         exclude = ['usuario']
-
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class': 'w-full h-8 border-black rounded-md'}),
+        }
 
 
 class CustomPasswordChangeForm(PasswordChangeForm):

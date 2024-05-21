@@ -286,21 +286,21 @@ def delete(request, id_estudio):
 @login_required
 def borrarArea(request, id):
     area = get_object_or_404(
-        Area, id=id)
+        Area, id=id, usuario=request.user)
     area.delete()
     return redirect("area")
 
 @login_required
 def borrarMaquina(request, id_maquina):
     maquina = get_object_or_404(
-        Maquina, id_maquina=id_maquina)
+        Maquina, id_maquina=id_maquina, usuario=request.user)
     maquina.delete()
     return redirect("area")
 
 @login_required
 def borrarTipo(request, id_tipo):
     tipo = get_object_or_404(
-        Tipo, id_tipo=id_tipo)
+        Tipo, id_tipo=id_tipo, usuario=request.user)
     tipo.delete()
     return redirect("area")
 

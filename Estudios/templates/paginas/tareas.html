@@ -6,58 +6,92 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'css/task.css' %}?v=1">
 
-<link rel="stylesheet" type="text/css" href="{% static 'css/editar.css' %}?v=1">
-<link rel="stylesheet" type="text/css" href="{% static 'css/comentarios.css' %}?v=1">
 
 
-<br>
+<style>
+#alert-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+    pointer-events: none; /* Deshabilita eventos de puntero en el contenedor */
+}
 
+#alert-container .alert {
+    pointer-events: auto; /* Habilita eventos de puntero solo en la alerta */
+    max-width: 90%;
+    width: auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra para mejor visibilidad */
+}
+
+</style>
+<div id="alert-container" class="fixed inset-0 flex items-center justify-center pointer-events-none z-50"></div>
 
 <div class="cprincipal">
-    <div class="animated-card">
-        <div class="card-content">
-            <div class="ag-courses-item_title" style="text-align: center;">
-                dasdsa
-                {{ estudio.nombre }}
 
-            </div>
+    <div class="card-container flex flex-col max-w-lg min-h-30 mx-auto p-6">
+
+        <!-- Contenedor del cronómetro -->
+        <div class="px-6 py-4 mb-auto text-center">
             <div class="cronometro-container" id="cronometro-container">
-                <div class="ag-courses-item_title">
-                    <p> Tiempo total del estudio: </p>
-                    <span id="cronometro_estudio" data-estudio-id="{{ estudio.id_estudio }}"
-                        class="{% if estudio.pausado %}pausado{% endif %}">
+                <a class="font-medium text-2xl inline-block hover:text-indigo-600 transition duration-500 ease-in-out mb-2">
+                    {{ estudio.nombre }}
+                </a>
+                <h1 class="text-gray-500 text-lg font-mono mt-4">
+                    <span id="cronometro_estudio" data-estudio-id="{{ estudio.id_estudio }}" class="{% if estudio.pausado %}pausado{% endif %}">
                         {% if estudio.tiempo_inicio and not estudio.tiempo_fin %}
-                        {% if estudio.pausado %}
-                        {{ estudio.tiempo_pausa|duration_format }}
+                            {% if estudio.pausado %}
+                                {{ estudio.tiempo_pausa|duration_format }}
+                            {% else %}
+                                {{ estudio.cronometro|duration_format }}
+                            {% endif %}
                         {% else %}
-                        {{ estudio.cronometro|duration_format }}
-                        {% endif %}
-                        {% else %}
-                        00:00:00
+                            00:00:00
                         {% endif %}
                     </span>
-                </div>
-            </div>
-            <!-- Botones para controlar el estudio -->
-            <div class="ag-courses-item_date-box">
-                {% if not estudio.tiempo_inicio %}
-                <a href="{% url 'iniciar_estudio' estudio.id_estudio %}" class="btn btn-success">Iniciar Estudio</a>
-                {% elif not estudio.tiempo_fin %}
-                <a href="{% url 'finalizar_estudio' estudio.id_estudio %}" class="btn btn-danger">Finalizar Estudio</a>
-
-                {% if not estudio.pausado %}
-                <a href="#" id="boton_pausar" onclick="pausarEstudio('{{ estudio.id_estudio }}')"
-                    class="btn btn-warning">Pausar</a>
-                {% else %}
-                <a href="#" id="boton_reanudar" onclick="reanudarEstudio('{{ estudio.id_estudio }}')"
-                    class="btn btn-success">Reanudar</a>
-                {% endif %}
-                {% endif %}
+                </h1>
             </div>
         </div>
+    
+        <!-- Contenedor de los botones -->
+        <div class="max-w-md mx-auto my-4 p-4 bg-gray-100 rounded-lg shadow-lg text-center">
+    
+            {% if not estudio.tiempo_inicio %}
+                    <a href="{% url 'iniciar_estudio' estudio.id_estudio %}" class="custom-button flex items-center">
+                        <svg aria-hidden="true" class="h-3 w-3 flex-none fill-violet-600 group-active:fill-current">
+                            <path d="m9.997 6.91-7.583 3.447A1 1 0 0 1 1 9.447V2.553a1 1 0 0 1 1.414-.91L9.997 5.09c.782.355.782 1.465 0 1.82Z"></path>
+                        </svg>
+                        <span class="ml-3">Iniciar</span>
+                    </a>
+            {% elif not estudio.tiempo_fin %}
+                <a href="{% url 'finalizar_estudio' estudio.id_estudio %}" class="custom-button flex items-center justify-center bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition duration-300">
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-circle-letter-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M10 8l4 8" /><path d="M10 16l4 -8" /></svg>
+                    <span class="ml-3">Finalizar</span>
+                </a>
+                {% if not estudio.pausado %}
+                    <a href="#" id="boton_pausar" onclick="pausarEstudio('{{ estudio.id_estudio }}')" class="custom-button flex items-center justify-center bg-yellow-600 text-white py-2 px-4 rounded-lg hover:bg-yellow-700 transition duration-300 mt-2">
+                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-player-pause"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 5m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v12a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" /><path d="M14 5m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v12a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" /></svg>
+                        <span class="ml-3">Pausar</span>
+                    </a>
+                {% else %}
+                    <a href="#" id="boton_reanudar" onclick="reanudarEstudio('{{ estudio.id_estudio }}')" class="custom-button flex items-center justify-center bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300 mt-2">
+                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 4v16l13 -8z" /></svg>
+                        <span class="ml-3">Reanudar</span>
+                    </a>
+                {% endif %}
+            {% endif %}
+        </div>
+    
     </div>
+    
 
-    <div class="formulario">
+
+    <!-- <div class="formulario">
         {% if not estudio.tiempo_fin %}
         <form class="card-form" method="post" action="{% url 'tareas' id_estudio %}" id="actividad-form">
             {% csrf_token %}
@@ -91,21 +125,18 @@
         {% else %}
         <p>El estudio ha finalizado. No se pueden crear más actividades.</p>
         {% endif %}
-    </div>
+    </div> -->
 </div>
 
 
 <div class="ag-courses-item" draggable="true" ondragstart="dragStart(event)">
-    <div class="ag-courses-item_title2" style="text-align: center;">
+    <div class="ag-courses-item_title2 text-center">
         <div class="ag-format-container">
             <div class="ag-courses_box">
                 {% for actividad in actividades %}
                 <div class="ag-courses_item">
-            
                     <a href="{% url 'registrar_vuelta' actividad.id %}" class="ag-courses-item_link">
                         <div class="ag-courses-item_bg" style="background-color: {{ actividad.color }};"></div>
-                
-
                         <div class="ag-courses-item_title2">
                             {{ actividad.nombre }}
                         </div>
@@ -115,7 +146,10 @@
                         {% if estudio.tiempo_inicio and not estudio.tiempo_fin %}
                         {% if not estudio.pausado %}
                         <a href="{% url 'registrar_vuelta' actividad.id %}"
-                            class="btn btn-danger registrar-vuelta">Finalizar</a>
+                            class="registrar-vuelta bg-red-700 rounded-lg text-white text-xs text-center self-center px-3 py-2 my-2 mx-2">
+                            <span> Registrar vuelta</span> 
+                        </a>
+                
                         {% endif %}
                         {% endif %}
                     </a>
@@ -127,96 +161,161 @@
 </div>
 
 
-<div id="alert-container"></div>
+
+
+
+
 
 <div id="contenido-dinamico">
-    <div class="ag-courses-item_title" style="text-align: center;">
-        <main class="table">   
-            <div class="pagination">
-                <span class="step-links">
-                    {% if vueltas_actividad.has_previous %}
-                        <a href="?page=1" class="pagination-link">&laquo; Primero</a>
-                        <a href="?page={{ vueltas_actividad.previous_page_number }}" class="pagination-link">Anterior</a>
-                    {% endif %}
-                
-                    <span class="current">
-                        Página {{ vueltas_actividad.number }} de {{ vueltas_actividad.paginator.num_pages }}.
-                    </span>
-                
-                    {% if vueltas_actividad.has_next %}
-                        <a href="?page={{ vueltas_actividad.next_page_number }}" class="pagination-link">Siguiente</a>
-                        <a href="?page={{ vueltas_actividad.paginator.num_pages }}" class="pagination-link">Último &raquo;</a>
-                    {% endif %}
-                </span>
-            </div>
-            <section class="table__body">
-                
-                <div id="miTabla">
-                    <table class="custom-table" id="tabla-vueltas">
-                        <thead>
+<div class="flex justify-center mt-6">
+    <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="inline-block w-full md:w-auto py-2 align-middle md:px-6 lg:px-8">
+            <div class="overflow-hidden border border-black dark:border-black md:rounded-lg">
+                <div id="miTabla" class="overflow-auto border border-black dark:border-black md:rounded-lg h-22">
+                    <table id="tabla-vueltas" class="min-w-full md:min-w-[600px] lg:min-w-[1100px] divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead class="sticky top-0 z-10 bg-gray-20 dark:bg-gray-800">
                             <tr>
-                                <th>#</th>
-                                <th>Actividad</th>       
-                                <th>Tiempo Real(Min)</th>
-                                <th>Tiempo Total(N)</th>
-                                <th style="text-align: center;">COMENTARIOS</th> 
+                                <th scope="col"
+                                    class="py-2 px-4 text-xs font-normal text-left rtl:text-right text-gray-500 dark:text-white"> <!-- Modificación: Ajusté el padding y el texto a text-xs -->
+                                    <div class="flex items-center gap-x-3">
+                                        <span>(#)</span>
+                                    </div>
+                                </th>
+                                <th scope="col"
+                                class="px-4 py-1 text-xs font-normal text-left rtl:text-right text-gray-500 dark:text-white">
+                                <button class="flex items-center gap-x-2">
+                                    <span>Actividad</span>
+                                </button>
+                                  </th>
+
+
+                                <th scope="col"
+                                    class="px-8 py-2 text-xs font-normal text-left rtl:text-right text-gray-500 dark:text-white"> <!-- Modificación: Ajusté el padding y el texto a text-xs -->
+                                    <button class="flex items-center gap-x-2">
+                                        <span>Tiempo real (Minutos)</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            class="icon icon-tabler icons-tabler-outline icon-tabler-clock-hour-11">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+                                            <path d="M12 12l-2 -3" />
+                                            <path d="M12 7v5" />
+                                        </svg>
+                                    </button>
+                                </th>
+                                <th scope="col"
+                                    class="px-4 py-2 text-xs font-normal text-left rtl:text-right text-gray-500 dark:text-white"> <!-- Modificación: Ajusté el padding y el texto a text-xs -->
+                                    <button class="flex items-center gap-x-2">
+                                        <span>Tiempo de registro</span>
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            class="icon icon-tabler icons-tabler-outline icon-tabler-clock-hour-11">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+                                            <path d="M12 12l-2 -3" />
+                                            <path d="M12 7v5" />
+                                        </svg>
+                                    </button>
+                                </th>
+
+                                <th scope="col" class="px-10 py-2 text-xs font-normal text-gray-500 dark:text-white">
+                                    <div class="flex justify-center items-center gap-x-2">
+                                        <span>Comentarios</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                             stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"
+                                             class="icon icon-tabler icons-tabler-outline icon-tabler-message-2">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M8 9h8"/>
+                                            <path d="M8 13h6"/>
+                                            <path d="M9 18h-3a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-3l-3 3l-3 -3z"/>
+                                        </svg>
+                                    </div>
+                                </th>
+                                
                             </tr>
                         </thead>
-                        <tbody>
+
+
+
+                        <tbody class="bg-white divide-y divide-gray-400  dark:text-black ">
                             {% for vuelta in vueltas_actividad %}
+
                             <tr>
-                                <td>{{ numero_vuelta|add:forloop.counter }}</td>
-                                <td class="mi-columna2">{{ vuelta.actividad.nombre }}</td>
-                                <!-- {% if forloop.first %}
-                      
-                                <td class="tiempo-real">{{ vuelta.tiempo_total|duration_format2:'mm' }}</td>
-                              
-                                {% endif %} -->
+                                <td class="px-4 py-2 text-xs font-medium text-black whitespace-nowrap">
+                                    <div class="inline-flex items-center gap-x-3">
+
+                                        <div class="flex items-center gap-x-2">
+                                            <div>
+                                                <h2 class="font-medium text-gray-800 ">{{ numero_vuelta|add:forloop.counter }}</h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-8 py-2 text-xs dark:text-black whitespace-nowrap overflow-hidden max-w-[200px]">
+                                    <span class="inline-block max-w-full overflow-hidden overflow-ellipsis">{{ vuelta.actividad.nombre }}</span>
+                                </td>
                                 
-                                <td class="tiempo-real">
+                                <!-- Modificación: Ajusté el padding y el texto a text-xs -->
+                            
+                                <td class="px-8 py-2 text-xs dark:text-black whitespace-nowrap">
                                     {% if vuelta.tiempo_real is not None %}
                                     {{ vuelta.tiempo_real|duration_format2:'mm' }}
 
                                    
                                     {% else %}..0
                                     N/A
-                                    {% endif %}
-                                </td>
-                       
-                                <td>{{ vuelta.tiempo_total|duration_format }}</td>
-                                <td class="mi-columna">
-                                    {% if vuelta %}
-                                        <div class="mi-formulario">
-                                            <form method="post" action="" id="comentario-form-{{ vuelta.id }}">
+                                    {% endif %}  
+                                </td> 
 
-                                                {% csrf_token %}
-                                                <input type="hidden" name="vuelta_id" value="{{ vuelta.id }}">
-                                                <div class="mi-contenedor">
-                                                    {{ comentarioForm2.contenido }}
-                                                    <div class="mi-boton">
-                                                        <button type="submit">✔</button>
-                                                        <span id="recuento-comentarios"># {{ vuelta.cantidad_comentarios }}</span>
-                                                    </div>
-                                                   
-                                                </div>
-                                            </form>
+
+                  
+
+                                <td class="px-4 py-2 text-xs whitespace-nowrap"> <!-- Modificación: Ajusté el padding y el texto a text-xs -->
+                                    <div class="flex items-center">
+                                        {{ vuelta.tiempo_total|duration_format }}
                                         </div>
-
+                                </td>
+                                <td class="px-10 py-2 text-xs dark:text-black whitespace-nowrap">
+                                    {% if vuelta %}
+                                    <div class="mi-formulario">
+                                        <form method="post" action="" id="comentario-form-{{ vuelta.id }}">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="vuelta_id" value="{{ vuelta.id }}">
+                                            <div class="mi-contenedor">
+                                                {{ comentarioForm2.contenido }}
+                                                <div class="flex justify-center gap-2 mt-2">
+                                                    <button class="flex items-center gap-1 w-32 bg-red-700 rounded-lg text-white text-xs text-center px-3 py-2 hover:bg-red-800 transition duration-300">
+                                                        <svg width="20" height="20" fill="currentColor" class="mr-2" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M1344 1472q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zm256 0q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zm128-224v320q0 40-28 68t-68 28h-1472q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h427q21 56 70.5 92t110.5 36h256q61 0 110.5-36t70.5-92h427q40 0 68 28t28 68zm-325-648q-17 40-59 40h-256v448q0 26-19 45t-45 19h-256q-26 0-45-19t-19-45v-448h-256q-42 0-59-40-17-39 14-69l448-448q18-19 45-19t45 19l448 448q31 30 14 69z"></path>
+                                                        </svg>
+                                                        Añadir
+                                                    </button>
+                                                    <span class="flex items-center gap-1 text-xs font-medium text-gray-900">
+                                                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
+                                                        </svg>
+                                                        Comentarios
+                                                        <span id="recuento-comentarios" class="ml-1">{{ vuelta.cantidad_comentarios }}</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
                                     {% endif %}
                                 </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-          
-                    </table>
+                                
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </section>
-        </main>
-    </div>
+            </div>
+        </div>
+ </div>
 </div>
 
-<br>
-<br>
 
 
 

@@ -2,112 +2,87 @@
 {% load static %}
 {% block titulo %}{% endblock %}
 {% block contenido %}
-<link rel="stylesheet" href="{% static 'css/perfil.css' %}?v=1">
-
-<script src="{% static 'js/perfil.js' %}"></script>
 
 <script>
     var actualizarPerfilUrl = "{% url 'actualizar_perfil' %}";
     var cambiarContraseñaUrl = "{% url 'cambiar_contraseña' %}";
 </script>
+<script src="{% static 'js/perfil.js' %}"></script>
 
-
-<div class="container rounded bg-white mt-5 mb-5">
-    <div class="row">
-        <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                <img class="rounded-circle mt-5" width="150px"
-                    src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-                <span class="font-weight-bold">{{ usuario.username }}</span>
-                <span class="text-black-50">{{ usuario.email }}</span>
-                 Ultimo login:
-                <span class="text-black-50"> {{ usuario.last_login }} </span>
-
+<div class="w-full max-w-[1200px] mx-auto pb-12" style="margin-top: 70px;">
+    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
+        <div class="md:flex">
+            <div class="md:w-1/4 border-r p-5">
+                <div class="flex flex-col items-center justify-center">
+                    <header class="px-2 py-4 mt-16 flex flex-col justify-center items-center text-center">
+                        <img class="inline-flex object-cover border-4 border-indigo-600 rounded-full shadow-lg bg-indigo-50 text-indigo-600 h-24 w-24" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHwyfHxoZWFkc2hvdHxlbnwwfDB8fHwxNjk1ODE3MjEzfDA&ixlib=rb-4.0.3&q=80&w=1080" alt="">
+                        <h1 class="text-2xl text-gray-500 font-bold mt-2">{{ usuario.username }}</h1>
+                        <h2 class="text-base md:text-xl text-gray-500 font-bold">
+                            {{ usuario.email }}
+                            <a href="" target="_blank" class="text-indigo-900 hover:text-indigo-600 font-bold border-b-0 hover:border-b-4 hover:border-b-indigo-300 transition-all mb-2">{{ usuario.last_login }}</a>
+                        </h2>
+                    </header>
+                </div>
             </div>
-        </div>
-
-        <div class="col-md-5 border-right">
-            <div class="p-3 py-5">
+            <div class="md:w-5/12 border-r p-5">
                 <form method="post" id="perfil-form">
-
-                    <div class="row mt-2">
-                        {% csrf_token %}
-                        <label for="{{ perfil_form.username.id_for_label }}" class="label">Nombre de
-                            usuario:</label>
-
-                        <input type="text" class="form-control" placeholder="identificador de usuario"
-                            value="{{ user.username}}" name="username" required>
-
-                        <label for="{{ perfil_form.email.id_for_label }}" class="label">Correo:</label>
-
-                        <input type="text" class="form-control" placeholder="Correo" value="{{ user.email}}"
-                            name="email" required>
-
+                    {% csrf_token %}
+                    <div class="mb-4">
+                        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="{{ perfil_form.username.id_for_label }}">Nombre de usuario</label>
+                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="text" placeholder="Identificador de usuario" value="{{ user.username }}" name="username" required>
                     </div>
-
-                    <div class="row mt-3">
-                        <label class="label">Nombre Real:</label>
-
-                        <input type="text" class="form-control" placeholder="Nombre" value="{{ usuario.first_name }}"
-                            name="first_name" required>
-
-                        <label class="label">Apellido:</label>
-
-                        <input type="text" class="form-control" placeholder="Apellido" value="{{ usuario.last_name }}"
-                            name="last_name" required>
+                    <div class="mb-4">
+                        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="{{ perfil_form.email.id_for_label }}">Correo</label>
+                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4" type="text" placeholder="Correo" value="{{ user.email }}" name="email" required>
                     </div>
-
-
-                    <div class="mt-5 text-center">
-                        <button class="btn btn-primary profile-button" type="submit">Guardar Perfil</button>
+                    <div class="mb-4">
+                        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">Nombre Real</label>
+                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="text" placeholder="Nombre" value="{{ usuario.first_name }}" name="first_name" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">Apellido</label>
+                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4" type="text" placeholder="Apellido" value="{{ usuario.last_name }}" name="last_name" required>
+                    </div>
+                    <div class="flex justify-center mt-5 text-center">
+                        <button class="btn-primary flex gap-1 px-4 py-2 rounded-lg bg-black  text-white" type="submit">
+                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-device-floppy"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" /><path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M14 4l0 4l-6 0l0 -4" /></svg>
+                            <span class="ml-2">Actualizar</span>
+                        </button>
                     </div>
                 </form>
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center experience">
-                    <span>Cambiar contraseña</span>
-                </div><br>
-                <div class="messages" style="display: none;">
-                    <ul class="messages"></ul>
+            <div class="md:w-3/12 p-5">
+                <div class="mb-4">
+                    <h2 class="text-xl font-semibold mb-2">Cambiar contraseña</h2>
                 </div>
-
+                <div class="messages" style="display: none;">
+                    <ul class="messages w-[300px] font-bold text-red-600"></ul>
+                </div>
+                <br>
                 <form method="post" id="cambiar-contraseña-form">
                     {% csrf_token %}
-
-                    <!-- Contraseña antigua -->
-                    <div class="col-md-12">
-                        <label class="labels">Contraseña antigua</label>
-                        <input type="password" class="form-control" name="old_password" required>
-
+                    <div class="mb-4">
+                        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">Contraseña antigua</label>
+                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="password" name="old_password" required>
                     </div>
-
-                    <!-- Contraseña nueva -->
-                    <div class="col-md-12">
-                        <label class="labels">Contraseña nueva</label>
-                        <input type="password" class="form-control" name="new_password1" required>
-
+                    <div class="mb-4">
+                        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">Contraseña nueva</label>
+                        <input class="appearance-none block w-[300px] h-[40px] bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="password" name="new_password1" required>
                     </div>
-
-                    <!-- Confirmar contraseña nueva -->
-                    <div class="col-md-12">
-                        <label class="labels">Confirmar contraseña nueva</label>
-                        <input type="password" class="form-control" name="new_password2" required>
+                    <div class="mb-4">
+                        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">Confirmar contraseña nueva</label>
+                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="password" name="new_password2" required>
                     </div>
-
                     <div class="mt-5 text-center">
-                        <button class="btn btn-primary profile-button" type="submit">Actualizar contraseña</button>
+                        <button class="flex gap-1 px-4 py-2 rounded-lg bg-black text-white" type="submit">
+                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
+                            <span class="ml-3">Cambiar contraseña</span>
+                        </button>
                     </div>
-
                 </form>
-
-
             </div>
         </div>
-
     </div>
-  
 </div>
 
 {% endblock %}

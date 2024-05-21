@@ -1,151 +1,367 @@
-{% extends "bases/base.html" %}
+{% extends 'bases/base.html' %}
 {% load static %}
 {% block titulo %}{% endblock %}
 
 {% block contenido %}
-<link rel="stylesheet" href="{% static 'css/area.css' %}?v=1" />
+
+<link rel="stylesheet" href="{% static 'css/area.css' %}">
 
 
-<div class="container mt-4">
-    <div class="row">
-        <!-- Formulario para crear máquina -->
-        <div class="col-lg-4 col-md-12">
-            <div class="card mb-4">
-                <div class="card-image">
-                    <h2 class="card-heading">
-                        Crear Actividad
-                    </h2>
-                </div>
-                <div class="card-body">
-                    <form method="post" action="{% url 'area' %}" id="tipo-form">
-                        {% csrf_token %}
-                        {{ form_tipo.as_p }}
-                        <button type="submit" class="btn btn-primary">Crear Tipo</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <!-- Formulario para crear área -->
-        <div class="col-lg-4 col-md-12">
-            <div class="card mb-4">
-                <div class="card-image">
-                    <h2 class="card-heading">
-                        Crear Área
-                    </h2>
-                </div>
-                <div class="card-body">
-                    <form method="post" action="{% url 'area' %}" id="area-form">
-                        {% csrf_token %}
-                        {{ form_area.as_p }}
-                        <button type="submit" class="btn btn-primary">Crear Área</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-12">
-            <div class="card mb-4">
-                <div class="card-image">
-                    <h2 class="card-heading">
-                        Crear Máquina
-                    </h2>
-                </div>
-                <div class="card-body">
-                    <form method="post" action="{% url 'area' %}" id="maquina-form">
-                        {% csrf_token %}
-                        {{ form_maquina.as_p }}
-                        <button type="submit" class="btn btn-primary">Crear Máquina</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>   
-    <br>
-    <div class="row">
-        <div class="col-md-4">
-            <main class="table-responsive">
-                <h4>Tipos</h4>
-                <table class="table table-striped compact-table">
-                    <thead>
-                        <tr>
-                            <th>id</th>
-                            <th>Tipo <span class="icon-arrow">&UpArrow;</span></th>
-                            <th>Acción</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for tipo in tipos %}
-                        <tr>
-                            <td>{{ tipo.id_tipo }}</td>
-                            <td>{{ tipo.nombre }}</td>
-                            <td>
-                                <a name="" class="btn btn-danger delete-button"
-                                    data-url="{% url 'borrarTipo' tipo.id_tipo %}" role="button">X</a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </main>
-        </div>
-        <div class="col-md-4">
-            <main class="table-responsive">
-                <h4>Áreas</h4>
-                <table class="table table-striped compact-table">
-                    <thead>
-                        <tr>
-                            <th>id</th>
-                            <th>Área <span class="icon-arrow">&UpArrow;</span></th>
-                            <th>Acción</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for area in areas %}
-                        <tr>
-                            <td>{{ area.id }}</td>
-                            <td>{{ area.nombre }}</td>
-                            <td>
-                                <a name="" class="btn btn-danger delete-button" data-url="{% url 'borrarArea' area.id %}"
-                                    role="button">X</a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </main>
-        </div>
-        <div class="col-md-4">
-            <main class="table-responsive">
-                <h4>Máquinas</h4>
-                <table class="table table-striped compact-table">
-                    <thead>
-                        <tr>
-                            <th>id</th>
-                            <th>Máquina <span class="icon-arrow">&UpArrow;</span></th>
-                            <th>Acción</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for maquina in maquinas %}
-                        <tr>
-                            <td>{{ maquina.id_maquina }}</td>
-                            <td>{{ maquina.nombre }}</td>
-                            <td>
-                                <a name="" id="" class="btn btn-danger delete-button"
-                                    data-url="{% url 'borrarMaquina' maquina.id_maquina %}" role="button">X</a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </main>
-        </div>
+
+
+
+  <!-- contenedor de los tres formularios para crear las areas, maquinas, tipos de actividad -->
+<div class="max-w-screen-xl mx-auto p-5 sm:p-10 md:p-16">
+
+  <div class="border-b mb-5 flex justify-between text-sm">
+    <div class="text-indigo-600 flex items-center pb-2 pr-2 border-b-2 border-indigo-600 uppercase">
+      <svg class="h-6 mr-3" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 455.005 455.005"
+        style="enable-background:new 0 0 455.005 455.005;" xml:space="preserve">
+        <g>
+          <path
+            d="M446.158,267.615c-5.622-3.103-12.756-2.421-19.574,1.871l-125.947,79.309c-3.505,2.208-4.557,6.838-2.35,10.343 c2.208,3.505,6.838,4.557,10.343,2.35l125.947-79.309c2.66-1.675,4.116-1.552,4.331-1.432c0.218,0.12,1.096,1.285,1.096,4.428 c0,8.449-6.271,19.809-13.42,24.311l-122.099,76.885c-6.492,4.088-12.427,5.212-16.284,3.084c-3.856-2.129-6.067-7.75-6.067-15.423 c0-19.438,13.896-44.61,30.345-54.967l139.023-87.542c2.181-1.373,3.503-3.77,3.503-6.347s-1.323-4.974-3.503-6.347L184.368,50.615 c-2.442-1.538-5.551-1.538-7.993,0L35.66,139.223C15.664,151.815,0,180.188,0,203.818v4c0,23.63,15.664,52.004,35.66,64.595 l209.292,131.791c3.505,2.207,8.136,1.154,10.343-2.35c2.207-3.505,1.155-8.136-2.35-10.343L43.653,259.72 C28.121,249.941,15,226.172,15,207.818v-4c0-18.354,13.121-42.122,28.653-51.902l136.718-86.091l253.059,159.35l-128.944,81.196 c-20.945,13.189-37.352,42.909-37.352,67.661c0,13.495,4.907,23.636,13.818,28.555c3.579,1.976,7.526,2.956,11.709,2.956 c6.231,0,12.985-2.176,19.817-6.479l122.099-76.885c11.455-7.213,20.427-23.467,20.427-37.004 C455.004,277.119,451.78,270.719,446.158,267.615z">
+          </path>
+          <path
+            d="M353.664,232.676c2.492,0,4.928-1.241,6.354-3.504c2.207-3.505,1.155-8.136-2.35-10.343l-173.3-109.126 c-3.506-2.207-8.136-1.154-10.343,2.35c-2.207,3.505-1.155,8.136,2.35,10.343l173.3,109.126 C350.916,232.303,352.298,232.676,353.664,232.676z">
+          </path>
+          <path
+            d="M323.68,252.58c2.497,0,4.938-1.246,6.361-3.517c2.201-3.509,1.14-8.138-2.37-10.338L254.46,192.82 c-3.511-2.202-8.139-1.139-10.338,2.37c-2.201,3.51-1.14,8.138,2.37,10.338l73.211,45.905 C320.941,252.21,322.318,252.58,323.68,252.58z">
+          </path>
+          <path
+            d="M223.903,212.559c-3.513-2.194-8.14-1.124-10.334,2.39c-2.194,3.514-1.124,8.14,2.39,10.334l73.773,46.062 c1.236,0.771,2.608,1.139,3.965,1.139c2.501,0,4.947-1.251,6.369-3.529c2.194-3.514,1.124-8.14-2.39-10.334L223.903,212.559z">
+          </path>
+          <path
+            d="M145.209,129.33l-62.33,39.254c-2.187,1.377-3.511,3.783-3.503,6.368s1.345,4.983,3.54,6.348l74.335,46.219 c1.213,0.754,2.586,1.131,3.96,1.131c1.417,0,2.833-0.401,4.071-1.201l16.556-10.7c3.479-2.249,4.476-6.891,2.228-10.37 c-2.248-3.479-6.891-4.475-10.37-2.228l-12.562,8.119l-60.119-37.38l48.2-30.355l59.244,37.147l-6.907,4.464 c-3.479,2.249-4.476,6.891-2.228,10.37c2.249,3.479,6.894,4.476,10.37,2.228l16.8-10.859c2.153-1.392,3.446-3.787,3.429-6.351 c-0.018-2.563-1.344-4.94-3.516-6.302l-73.218-45.909C150.749,127.792,147.647,127.795,145.209,129.33z">
+          </path>
+          <path
+            d="M270.089,288.846c2.187-3.518,1.109-8.142-2.409-10.329l-74.337-46.221c-3.518-2.188-8.143-1.109-10.329,2.409 c-2.187,3.518-1.109,8.142,2.409,10.329l74.337,46.221c1.232,0.767,2.601,1.132,3.953,1.132 C266.219,292.387,268.669,291.131,270.089,288.846z">
+          </path>
+          <path
+            d="M53.527,192.864c-2.187,3.518-1.109,8.142,2.409,10.329l183.478,114.081c1.232,0.767,2.601,1.132,3.953,1.132 c2.506,0,4.956-1.256,6.376-3.541c2.187-3.518,1.109-8.142-2.409-10.329L63.856,190.455 C60.338,188.266,55.714,189.346,53.527,192.864z">
+          </path>
+        </g>
+      </svg>
+      <a href="#" class="font-semibold inline-block">Personalizar datos de selección</a>
     </div>
+    <a class="font-bold text-red-500" href="#">No necesariamente debe ser una maquina, area, o un tipo. Puedes poner lo que sea</a>
+  </div>
+
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+
+    <!-- CARD 1 -->
+    <div class="rounded overflow-hidden shadow-lg flex flex-col">
+      <a href="#"></a>
+      <div class="relative"><a href="#">
+          <img class="w-full"
+            src="{% static 'img/work.jpeg' %}"
+            alt="Sunset in the mountains">
+          <div
+            class="hover:bg-transparent transition duration-300 absolute bottom-0 top-0 right-0 left-0 bg-gray-900 opacity-25">
+          </div>
+        </a>
+        <a href="#!">
+          <div
+            class="text-xs absolute top-0 right-0 bg-indigo-600 px-4 py-2 text-white mt-3 mr-3 hover:bg-white hover:text-indigo-600 transition duration-500 ease-in-out">
+            Máquina, obejto, etc.
+          </div>
+        </a>
+      </div>
+      <div class="px-6 py-4 mb-auto">
+        <h1
+          class="font-medium text-lg inline-block hover:text-indigo-600 transition duration-500 ease-in-out inline-block mb-2">
+          Crear máquina</h1>
+
+        <form method="post" action="{% url 'area' %}" id="tipo-form">
+          {% csrf_token %}
+          {{ form_maquina.as_p }}
+
+      </div>
+      <div class="px-6 py-3 flex flex-row  items-center justify-center bg-gray-100">
+        <button type="submit"
+          class="flex gap-3 border border-gray-700 bg-black text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-circle-plus">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+            <path d="M9 12h6" />
+            <path d="M12 9v6" />
+          </svg>
+          <span> Crear </span>
+        </button>
+      </div>
+      </form>
+    </div>
+
+
+
+    <!-- CARD 2 -->
+    <div class="rounded overflow-hidden shadow-lg flex flex-col">
+      <a href="#"></a>
+      <div class="relative"><a href="#">
+          <img class="w-full"
+            src="{% static 'img/lugar.jpeg' %}"
+            alt="Sunset in the mountains">
+          <div
+            class="hover:bg-transparent transition duration-300 absolute bottom-0 top-0 right-0 left-0 bg-gray-900 opacity-25">
+          </div>
+        </a><a href="#!">
+          <div
+            class="text-xs absolute top-0 right-0 bg-indigo-600 px-4 py-2 text-white mt-3 mr-3 hover:bg-white hover:text-indigo-600 transition duration-500 ease-in-out">
+            Sitio, zona, etc
+          </div>
+        </a>
+      </div>
+      <div class="px-6 py-4 mb-auto">
+        <h1
+          class="font-medium text-lg inline-block hover:text-indigo-600 transition duration-500 ease-in-out inline-block mb-2">
+          Crear area</h1>
+
+        <form method="post" action="{% url 'area' %}" id="tipo-form">
+          {% csrf_token %}
+          {{ form_area.as_p }}
+
+      </div>
+      <div class="px-6 py-3 flex flex-row  items-center justify-center bg-gray-100">
+        <button type="submit"
+          class="flex gap-3 border border-gray-700 bg-black text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-circle-plus">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+            <path d="M9 12h6" />
+            <path d="M12 9v6" />
+          </svg>
+          <span> Crear </span>
+        </button>
+      </div>
+      </form>
+
+    </div>
+
+
+
+    <!-- CARD 3 -->
+    <div class="rounded overflow-hidden shadow-lg flex flex-col">
+      <a href="#"></a>
+      <div class="relative"><a href="#">
+          <img class="w-full"
+            src="{% static 'img/actividad.jpeg' %}"
+            alt="Sunset in the mountains">
+          <div
+            class="hover:bg-transparent transition duration-300 absolute bottom-0 top-0 right-0 left-0 bg-gray-900 opacity-25">
+          </div>
+        </a><a href="#!">
+          <div
+            class="text-xs absolute top-0 right-0 bg-indigo-600 px-4 py-2 text-white mt-3 mr-3 hover:bg-white hover:text-indigo-600 transition duration-500 ease-in-out">
+            Correr, estudiar, analizar
+          </div>
+        </a>
+      </div>
+      <div class="px-6 py-4 mb-auto">
+        <h1
+          class="font-medium text-lg inline-block hover:text-indigo-600 transition duration-500 ease-in-out inline-block mb-2">
+          Crear tipo de actividad</h1>
+
+        <form method="post" action="{% url 'area' %}" id="tipo-form">
+          {% csrf_token %}
+          {{ form_tipo.as_p }}
+
+      </div>
+      <div class="px-6 py-3 flex flex-row  items-center justify-center bg-gray-100">
+        <button type="submit"
+          class="flex gap-3 border border-gray-700 bg-black text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-circle-plus">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+            <path d="M9 12h6" />
+            <path d="M12 9v6" />
+          </svg>
+          <span> Crear </span>
+        </button>
+      </div>
+      </form>
+    </div>
+
+  </div>
+
 </div>
 
 
 
+<!-- en esta parte del html se muestran los registros creados por el usuario -->
+
+<div class="text-3xl font-bold flex justify-center text-center ">Registros</div>
+
+{% include 'bases/section.html' %}
+{% block tablas %}
+<div class="container flex justify-center" style="margin-top: 75px; margin-left: 50px;">
+
+  <!-- TABLA DE MAQUINAS -->
+
+  <div class="flex flex-col">
+    <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
+      <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+        <!-- Ajuste de la altura fija y scroll vertical -->
+        <div class="overflow-hidden h-96"> 
+          <P class="flex justify-center gap-1 font-bold ">Maquinas</P>
+          <div class="overflow-y-auto h-full">
+            <table class="min-w-full">
+              <thead class="bg-white border-b">
+                <tr>
+                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                    Nombre
+                  </th>
+                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                    Acción
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for maquina in maquinas %}
+                <tr class="bg-gray-100 border-b">
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ maquina.nombre }}</td>
+                  <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                    <a data-url="{% url 'borrarMaquina' maquina.id_maquina %}" class="text-slate-800 hover:text-red-600 text-sm bg-white hover:bg-slate-100 border border-slate-200 rounded-r-lg font-medium px-4 py-2 inline-flex space-x-1 items-center">
+                      <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                             stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                        </svg>
+                      </span>
+                      <span class="hidden md:inline-block">Borrar</span>
+                    </a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   
-<script  src="{% static 'js/alertas.js' %}"></script>
+  
+  <!-- TABLA DE AREAS -->
+  <div class="flex flex-col">
+    <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
+      <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="overflow-hidden h-96">
+          <P class="flex justify-center gap-1 font-bold ">Areas</P>
+          <div class="overflow-y-auto h-full">
+          <table class="min-w-full">
+            <thead class="bg-white border-b">
+              <tr>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  Nombre
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  Acción
+                </th>
+  
+              </tr>
+            </thead>
+            <tbody>
+              {% for area in areas %}
+              <tr class="bg-gray-100 border-b">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ area.nombre }}</td>
+
+  
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  <a data-url="{% url 'borrarArea' area.id %}"  class="text-slate-800 hover:text-red-600 text-sm bg-white hover:bg-slate-100 border border-slate-200 rounded-r-lg font-medium px-4 py-2 inline-flex space-x-1 items-center">
+                     <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                        </svg>
+                    </span>
+                    <span class="hidden md:inline-block">Borrar</span>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+            {% endfor %}
+          </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- TABLA DE TIPOS -->
+
+  <div class="flex flex-col">
+    <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
+      <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="overflow-hidden h-96">
+          <div class="overflow-y-auto h-full">
+          <P class="flex justify-center gap-1 font-bold ">Tipos de actividades</P>
+          <table class="min-w-full">
+            <thead class="bg-white border-b">
+              <tr>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  Nombre
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  Acción
+                </th>
+  
+              </tr>
+            </thead>
+            <tbody>
+              {% for tipo in tipos %}
+              <tr class="bg-gray-100 border-b">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ tipo.nombre }}</td>
+
+  
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  <a data-url="{% url 'borrarTipo'  tipo.id_tipo %}"  class="text-slate-800 hover:text-red-600 text-sm bg-white hover:bg-slate-100 border border-slate-200 rounded-r-lg font-medium px-4 py-2 inline-flex space-x-1 items-center">
+                     <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                        </svg>
+                    </span>
+                    <span class="hidden md:inline-block">Borrar</span>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+            {% endfor %}
+          </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
 
 
 {% endblock %}
+
+
+<script src="{% static 'js/alertas.js' %}"></script>
+
+
+{% endblock %}
+
+
+<!--
+  Heads up! 👋
+
+  This component comes with some `rtl` classes. Please remove them if they are not needed in your project.
+-->
