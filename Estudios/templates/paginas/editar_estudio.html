@@ -2,91 +2,183 @@
 {% load static %}
 {% block titulo %}{% endblock %}
 {% block contenido %}
-<link rel="stylesheet" href="{% static 'css/estilos3.css' %}?v=1">
-<br>
-<br>
-<br>
-<br>
-<br>
 
-<div class="container">
-    <div id="contenedor-principal" class="mb-4">
-        <h2>Editar tu estudio</h2>
-        <!-- Estudio Form -->
-        <form method="post" action="{% url 'actualizar_estudio' estudio.id_estudio %}" id="estudio-form" class="w-100">
+
+
+
+
+
+
+{% include "bases/section.html" %}
+{% block section_content %}
+<div class="max-w-screen-lg mx-auto p-5">
+    <div class="grid grid-cols-1 md:grid-cols-12 border">
+        <div class="bg-gray-900 md:col-span-4 p-10 text-white">
+            <p class="mt-4 text-sm leading-7 font-regular uppercase">
+                Recordatorios
+            </p>
+            <h3 class="text-3xl sm:text-4xl leading-normal font-extrabold tracking-tight">
+                Edición de <span class="text-indigo-600">estudio</span>
+            </h3>
+            <p class="mt-4 leading-7 text-gray-200">
+                Si el estudio ya finalizo, no se pueden crear más activdades, puedes copiarlo desde la pagina principal
+            </p>
+
+            <div class="flex items-center mt-5">
+                <svg class="h-6 mr-2 text-indigo-600" fill="currentColor" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 489.536 489.536"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 489.536 489.536">
+                    <g>
+                        <g>
+                            <path
+                                d="m488.554,476l-99-280.2c-1-4.2-5.2-7.3-9.4-7.3h-45.6c12.9-31.1 19.6-54.9 19.6-70.8 0-64.6-50-117.7-112.5-117.7-61.5,0-112.5,52.1-112.5,117.7 0,17.6 8.2,43.1 19.9,70.8h-39.7c-4.2,0-8.3,3.1-9.4,7.3l-99,280.2c-3.2,10.3 6.3,13.5 9.4,13.5h468.8c4.2,0.5 12.5-4.2 9.4-13.5zm-246.9-455.3c51,1.06581e-14 91.7,43.7 91.7,96.9 0,56.5-79.2,182.3-91.7,203.1-31.3-53.1-91.7-161.5-91.7-203.1 0-53.1 40.6-96.9 91.7-96.9zm-216.7,448l91.7-259.4h41.7c29.9,64.1 83.3,151 83.3,151s81.4-145.7 83.8-151h47.4l91.7,259.4h-439.6z">
+                            </path>
+                            <rect width="136.5" x="177.054" y="379.1" height="20.8"></rect>
+                            <path
+                                d="m289.554,108.2c0-26-21.9-47.9-47.9-47.9s-47.9,21.9-47.9,47.9 20.8,47.9 47.9,47.9c27.1,0 47.9-21.8 47.9-47.9zm-75-1c0-14.6 11.5-27.1 27.1-27.1s27.1,12.5 27.1,27.1-11.5,27.1-27.1,27.1c-14.6,2.84217e-14-27.1-12.5-27.1-27.1z">
+                            </path>
+                        </g>
+                    </g>
+                </svg>
+                <span class="text-sm">Tienes que crear tus registro en la pestaña "Personalizar categoria"</span>
+            </div>
+            <div class="flex items-center mt-5">
+
+            </div>
+            <div class="flex items-center mt-5">
+
+            </div>
+
+        </div>
+
+        <form method="post" action="{% url 'actualizar_estudio' estudio.id_estudio %}" id="estudio-form"  class="md:col-span-8 p-10">
             {% csrf_token %}
+            <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                        for="grid-first-name">
+                        Nombre del estudio
+                    </label>
+                    <input
+                        name="nombre" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                        id="estudio" type="text" placeholder="Estudio de matematicas" required value="{{estudio.nombre }}">
+                    <p class="text-red-500 text-xs italic" required>Please fill out this field.</p>
+                </div>
 
-            <!-- {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                <li class="{{ message.tags }}">{{ message }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %} -->
-            <label for="estudio_nombre">Nombre del Estudio:</label>
-            <input type="text" name="nombre" id="estudio_nombre" class="form-control mb-2" value="{{ estudio.nombre }}"
-                required>
-            <label for="estudio_descripcion">Descripción del Estudio:</label>
-            <textarea name="descripcion" id="estudio_descripcion" class="form-control mb-2"
-                required>{{ estudio.descripcion }}</textarea>
-            <label for="estudio_fechas">Fecha</label>
-            <input type="date" name="fecha" id="estudio_fecha" class="form-control mb-2"
-                value="{{ estudio.fecha|date:'Y-m-d' }}" required>
-            <label for="estudio_maquina">Maquina</label>
-            <select name="maquina" id="estudio_maquina" class="form-control" required>
-                {% for m in maquina %}
-                <option value="{{ m.id_maquina }}">{{ m.nombre }}</option>
-                {% endfor %}
-            </select>
+            </div>
+            <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full px-3">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                        for="grid-password">
+                        Fecha
+                    </label>
+                    <input
+                         name="fecha" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                         id="grid-email" type="date" required value="{{ estudio.fecha }}">
+                </div>
+            </div>
 
-            <label for="estudio_area">Área</label>
-            <select name="area" id="estudio_area" class="form-control" required>
-                {% for a in area %}
-                <option value="{{ a.id}}">{{ a.nombre }}</option>
-                {% endfor %}
-            </select>
+            <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full px-3">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                        for="grid-password">
+                        máquina
+                    </label>
+                    <select name="maquina" id
+                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        id="grid-email">
+                        {% for m in maquina %}
+                        <option value="{{ m.id_maquina }}">{{ m.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
 
-            <input type="submit" class="btn btn-primary" id="exampleFormControlInput1" value="Actualizar Estudio">
+            <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full px-3">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                        for="grid-password">
+                        area
+                    </label>
+                    <select name="area" id="estudio_area"
+                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        id="grid-email">
+                        {% for a in area %}
+                        <option value="{{ a.id }}">{{ a.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full px-3">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                        for="grid-password">
+                        Descripción del estudio
+                    </label>
+                    <textarea rows="10" name="descripcion"
+                     id="estudio_descripcion"  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                        {{estudio.descripcion}}
+                    </textarea>
+                </div>
+
+                <div class="flex justify-start w-full px-3 space-x-4">
+                    <input
+                        class="shadow bg-indigo-600 hover:bg-indigo-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded"
+                        type="submit" value="Actualizar estudio" id="exampleFormControlInput1">
+
+                    {% if not estudio.tiempo_fin %}
+                    <a
+                        href="{% url 'crear_actividad_estudio' estudio.id_estudio %}" class="shadow bg-indigo-600 hover:bg-indigo-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded"
+                        type="button">
+                        Añadir actividad
+                    </a>
+                    {% endif %}
+                </div>
+                
+
+            </div>
+
         </form>
-
-        {% if not estudio.tiempo_fin %}
-        <a class="btn btn-success" href="{% url 'crear_actividad_estudio' estudio.id_estudio %}" role="button">Crear
-            Actividad</a>
-        {% endif %}
 
     </div>
 </div>
+{% endblock %}
 
-<div class="container">
-    <h1 class="mb-4">Actividades {{estudio.nombre}}</h1>
+
+<div class="container mx-auto p-4">
+    <h1 class="text-2xl font-bold mb-4">Actividades {{ estudio.nombre }}</h1>
     <!-- Tabla de Actividades -->
-    <div class="table-responsive">
-        <table class="table">
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border border-gray-200">
             <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Tipo</th>
-                    <th>Acción</th>
-                    <th>Acción 2</th>
+                <tr class="bg-gray-100 border-b">
+                    <th class="px-4 py-2 text-left">ID</th>
+                    <th class="px-4 py-2 text-left">Nombre</th>
+                    <th class="px-4 py-2 text-left">Descripción</th>
+                    <th class="px-4 py-2 text-left">Tipo</th>
+                    <th class="px-4 py-2 text-left">Acción</th>
+                    <th class="px-4 py-2 text-left">Acción 2</th>
                 </tr>
             </thead>
             <tbody>
                 {% for actividad in actividades %}
-                <tr>
-                    <td>{{ forloop.counter }}</td>
-                    <td>{{ actividad.nombre }}</td>
-                    <td>{{ actividad.descripcion }}</td>
-                    <td>{{ actividad.tipo }}</td>
-                    <td>
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="px-4 py-2">{{ forloop.counter }}</td>
+                    <td class="px-4 py-2">{{ actividad.nombre }}</td>
+                    <td class="px-4 py-2">{{ actividad.descripcion }}</td>
+                    <td class="px-4 py-2">{{ actividad.tipo }}</td>
+                    <td class="px-4 py-2">
                         <form method="post" action="{% url 'eliminar_actividad' actividad.id %}">
                             {% csrf_token %}
-                            <input type="submit" class="btn btn-danger" value="Eliminar">
+                            <button type="submit" class="flex bg-red-600 text-white px-3 py-1 rounded hover:bg-red-600">
+                                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
+                                <span class="ml-4">Eliminar</span>
+                            </button>
                         </form>
                     </td>
-                    <td> <a class="btn btn-primary" href="{% url 'editar_actividad' actividad.id %}"
-                            role="button">Editar</a>
+                    <td class="px-4 py-2">
+                        <a class="bg-green-600 text-white px-3 py-1 rounded " href="{% url 'editar_actividad' actividad.id %}" role="button">Editar</a>
                     </td>
                 </tr>
                 {% endfor %}
@@ -95,7 +187,6 @@
     </div>
 </div>
 
-<!-- Otras secciones del formulario... -->
 
 <script src="{% static 'js/editarForm.js' %}"></script>
 <script src="{% static 'js/mover.js' %}"></script>

@@ -4,60 +4,67 @@
 {% block titulo %}{% endblock %}
 
 {% block contenido %}
-<link rel="stylesheet" href="{% static 'css/editar.css' %}?v=1" />
-<div class="container mt-4">
-  <div id="contenedor-principal">
 
-    <!-- {% if form.errors %}
-    <div class="alert alert-danger">
-      <strong>Error:</strong> Hubo un problema con el formulario. Por favor, revisa los errores.
-    </div>
-    {% endif %} -->
 
-    <div class="form-container">
-      <div class="card">
-        <div class="card-image">
-          <h2 class="card-heading">
 
-            <small>Datos de tu actividad nueva!</small>
-          </h2>
+
+
+
+
+<div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-lg">
+    <h1 class="text-center text-2xl font-bold text-black sm:text-3xl">Edición de actividad</h1>
+    
+    <form method="post" action="{% url 'editar_actividad' actividad.id %}" id="actividad-form" class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
+      {% csrf_token %}
+  
+      <div>
+        <label for="nombre" class="sr-only">Nombre</label>
+        <div class="relative">
+          <input
+            type="text" name="nombre" id="nombre" value="{{ actividad.nombre }}"
+            class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+          />
         </div>
-
-        <form class="card-form" method="post" action="{% url 'editar_actividad' actividad.id %}" id="actividad-form">
-          {% csrf_token %}
-          <div class="input">
-            <input type="text" class="input-field" name="nombre" id="actividad_nombre" value="{{ actividad.nombre }}" />
-            <label class="input-label">Nombre de la Actividad</label>
-          </div>
-          <div class="input">
-            <textarea name="descripcion" class="input-field" id="actividad_descripcion"
-              required>{{ actividad.descripcion }}</textarea>
-            <label class="input-label">Descripción de la Actividad</label>
-          </div>
-
-          <div class="input">
-            <select name="tipo" id="actividad_tipo" class="form-control" required>
-              {% for t in tipo %}
-              <option value="{{ t.id_tipo }}">{{ t.nombre }}</option>
-              {% endfor %}
-            </select>
-       
-          </div>
-
-          <div class="input">
-
-            <input type="color" class="input-field" name="color" id="actividad_color" value="{{ actividad.color }}"> 
-
-          </div>
-
-          <div class="action">
-            <button class="action-button">Actualizar actividad</button>
-          </div>
-        </form>
-
-
       </div>
-    </div>
+
+      <div>
+        <label for="descripcion" class="sr-only">Descripción</label>
+        <div class="relative">
+          <textarea
+            name="descripcion" id="descripcion"
+            class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+            placeholder="Descripción de la Actividad"
+          >{{ actividad.descripcion }}</textarea>
+        </div>
+      </div>
+
+      <div>
+        <label for="tipo" class="sr-only">Tipo de actividad</label>
+        <select id="actividad_tipo" name="tipo" class="bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+          {% for t in tipo %}
+            <option value="{{ t.id_tipo }}" {% if t.id_tipo == actividad.tipo.id %}selected{% endif %}>{{ t.nombre }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      
+      <div>
+        <label for="hs-color-input" class="block text-sm font-medium mb-2">Selector de color</label>
+        <input type="color" name="color" class="p-1 h-10 w-14 block bg-white border border-gray-200 cursor-pointer rounded-lg" id="hs-color-input" value="{{ actividad.color }}" title="Choose your color">
+      </div>
+      
+      <button type="submit" class="block w-full rounded-lg bg-black px-5 py-3 text-sm font-medium text-white">
+        <span class="ml-1">Guardar</span>
+      </button>
+
+      <p class="text-center text-sm text-gray-500">
+        No account?
+        <a class="underline" href="#">Sign up</a>
+      </p>
+    </form>
   </div>
 </div>
+
+
+
 {% endblock %}
