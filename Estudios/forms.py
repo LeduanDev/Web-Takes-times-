@@ -1,3 +1,4 @@
+from tkinter import Widget
 from django import forms
 from .models import Comentario2, Estudio, Actividad, Tipo, Area, Maquina, ArchivoCompartido
 from django.contrib.auth.forms import UserCreationForm
@@ -70,6 +71,14 @@ class SignupForm(UserCreationForm):
             "password1",
             "password2",
         )
+        widgets = {
+            'username': forms.TextInput(attrs={ 'placeholder' : 'Usuario','class': 'w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white'}),
+            'last_name': forms.TextInput(attrs={ 'placeholder' : 'Usuario','class': 'w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white'}),
+            'email': forms.EmailInput(attrs={ 'placeholder' : 'Usuario','class': 'w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white'}),
+            'password1': forms.TextInput(attrs={ 'placeholder' : 'Usuario','class': 'w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white'}),
+            'password2': forms.TextInput(attrs={ 'placeholder' : 'Usuario','class': 'w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white'}),
+
+        }
 
 
 class PerfilForm(UserChangeForm):

@@ -447,8 +447,3 @@ def copiar_estudio(request, estudio_id):
     return redirect("home")
 
 
-
-
-
-def good_idea_hopper(request):
-    return render(request, 'paginas/ghopper.html')

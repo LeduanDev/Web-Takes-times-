@@ -12,6 +12,7 @@ from django.db.models import Sum
 from django.http import JsonResponse
 from django.core.paginator import Paginator
 from django.urls import reverse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 @login_required
@@ -22,7 +23,7 @@ def tareas(request, id_estudio):
 
     tipo = Tipo.objects.all()
 
-    elementos_por_pagina = 40
+    elementos_por_pagina = 20
     paginator = Paginator(vueltas_actividad, elementos_por_pagina)
     
     # Obtener el número de página desde la solicitud GET
@@ -39,7 +40,6 @@ def tareas(request, id_estudio):
         actividad_form = ActividadForm(request.POST)
         comentarioForm2 = ComentarioForm2(request.POST)
 
-    
         if actividad_form.is_valid():
             nueva_actividad = actividad_form.save(commit=False)
             nueva_actividad.estudio = estudio
@@ -59,22 +59,33 @@ def tareas(request, id_estudio):
 
             # Actualiza el recuento de comentarios para la vuelta
             recuento_comentarios = vuelta.cantidad_comentarios()
-            # return redirect('tareas', id_estudio=id_estudio)
             # Devuelve una respuesta JSON con el recuento de comentarios actualizado
             return JsonResponse({ "success": True,'recuento_comentarios': recuento_comentarios})
         
+        # Redirigir a la siguiente página si se alcanza el límite de registros por página en esta página
+        if len(page_obj.object_list) == paginator.per_page:
+            next_page_number = page_obj.next_page_number()
+            return HttpResponseRedirect(reverse('tareas', args=[id_estudio]) + f'?page={next_page_number}')
+
     else:
         actividad_form = ActividadForm()
         comentarioForm2 = ComentarioForm2()
         
-    if page_obj.has_next() and not page_obj.has_other_pages():
-        # Si la página actual es la última página y está llena, redirige a la siguiente página
-        return HttpResponseRedirect("?page=" + str(page_obj.next_page_number()))
+    # Verificar si se alcanzó el máximo de registros por página
+    max_registros_por_pagina = page_obj.paginator.per_page
+    if len(page_obj.object_list) >= max_registros_por_pagina:
+        # Si se alcanzó, agregar una variable de contexto para indicarlo en la plantilla
+        max_registros_alcanzado = True
+    else:
+        max_registros_alcanzado = False
+
+    reached_max_records = len(page_obj.object_list) >= max_registros_por_pagina        
 
     return render(
         request,
         "paginas/tareas.html",
         {
+            "reached_max_records": reached_max_records, 
             "estudio": estudio,
             "actividades": actividades,
             "actividad_form": actividad_form,
@@ -83,17 +94,16 @@ def tareas(request, id_estudio):
             "vueltas_actividad": page_obj,  # Pasar el objeto de página en lugar de todas las vueltas
             "comentarioForm2" : comentarioForm2,
             "numero_vuelta": numero_vuelta,
+            "max_registros_alcanzado": max_registros_alcanzado,  # Agregar variable de contexto
         },
     )
 
 
-#función importante, esta se encarga de hacer el calculo para dar el tiempo real de una actividad o registro, esta función hace un llamado a otra función de save
-#En esta se hacen llamados a los modelos de actividad y estudio
+@login_required
 @login_required
 def registrar_vuelta(request, actividad_id):
     actividad = get_object_or_404(Actividad, id=actividad_id)
     estudio = actividad.estudio
-
 
     if estudio.pausado:
         return HttpResponseBadRequest("No se pueden registrar vueltas mientras el estudio está pausado.")
@@ -133,6 +143,8 @@ def registrar_vuelta(request, actividad_id):
         )
     else:
         return JsonResponse({"success": False, "message": "El estudio no está en progreso o ya ha finalizado."})
+
+    
     
     
     

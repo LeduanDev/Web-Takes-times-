@@ -41,8 +41,8 @@ urlpatterns = [
      path('cambiar-contraseña/', Controlador_crud.cambiar_contraseña, name='cambiar_contraseña'),
      path("obtener-estado-estudio/<int:estudio_id>/",ControladorReloj.obtener_estado_estudio,name="obtener_estado_estudio",),
      path('registrar-vuelta/<int:actividad_id>/', ControladorReloj.registrar_vuelta, name='registrar_vuelta'),
-     path('copiar_estudio/<int:estudio_id>/', Controlador_crud.copiar_estudio, name='copiar_estudio'),
-     path('good_idea_hopper', Controlador_crud.good_idea_hopper, name='good_idea_hopper')
+     path('copiar_estudio/<int:estudio_id>/', Controlador_crud.copiar_estudio, name='copiar_estudio')
+
   
 ] 
 

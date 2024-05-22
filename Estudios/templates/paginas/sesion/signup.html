@@ -1,107 +1,86 @@
+{% extends 'bases/base2.html' %}
 {% load static %}
-<html>
+{% block titulo %} Iniciar Sesión {% endblock %}
+{% block contenido %}
 
-<head>
-  <meta charset="utf-8">
-  <title>: Sign in</title>
-  <link rel="stylesheet" href="{% static 'css/registro.css' %}?v=1">
-  <link rel="icon" href="{% static 'img/base.jpg' %}" type="image/x-icon">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
 
-<body>
+<div class="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
+  <div class="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
+      <div class="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
+          <div>
+              <img src="{% static 'img/logo2.png' %}"
+                  class="w-48 mx-auto" />
+          </div>
+          <div class="mt-12 flex flex-col items-center">
+              <h1 class="text-2xl xl:text-3xl font-extrabold">
+                  Regístrate
+              </h1>
+              <div class="w-full flex-1 mt-8">
+                  <div class="flex flex-col items-center ">
 
-  <div class="login-root">
-    <div class="box-root flex-flex flex-direction--column" style="min-height: 100vh;flex-grow: 1;">
-      <div class="loginbackground box-background--white padding-top--64">
-        <div class="loginbackground-gridContainer">
-          <div class="box-root flex-flex" style="grid-area: top / start / 8 / end;">
-            <div class="box-root"
-              style="background-image: linear-gradient(white 0%, rgb(247, 250, 252) 33%); flex-grow: 1;">
-            </div>
+                      <!-- Tu formulario de registro -->
+                      <form action="" method="POST" id="stripe-login" class="mt-4 w-full max-w-xs">
+                        {% csrf_token %}
+                        {{ error }}
+                      <div class="field padding-bottom--24 w-full">
+                          <input type="text" name="first_name" placeholder="Primer nombre"  class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+                      </div>
+                      <br>
+                      <div class="field padding-bottom--24 w-full">
+                          <input type="text" name="last_name" placeholder="Apellido"  class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+                      </div>
+                      <br>
+                      <div class="field padding-bottom--24 w-full">
+                          <input type="text" name="username" placeholder="Usuario"  class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+                      </div>
+                      <br>
+                      <div class="field padding-bottom--24 w-full">
+                          <input type="password" name="password1" placeholder="Contraseña"  class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+                      </div>
+                      <br>
+                      <div class="field padding-bottom--24 w-full">
+                          <input type="password" name="password2" placeholder="Confirmar contraseña"  class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+                      </div>
+                      <br>
+                      <div class="field padding-bottom--24 w-full">
+                          <input type="email" name="email" placeholder="Correo electrónico"  class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+                      </div>
+                      
+                        <div class="field padding-bottom--24 w-full">
+                          <input type="submit" name="submit" value="Registrarse" class="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+                        </div>
+                      </form>
+                      <!-- Fin de tu formulario de registro -->
+
+                      <a  href="{% url 'loginn' %}"
+                          class="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline mt-5">
+                          <div class="bg-white p-1 rounded-full">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                            <circle cx="8.5" cy="7" r="4" />
+                            <path d="M20 8v6M23 11h-6" />
+                        </svg>
+                          </div>
+                          <span class="ml-4">
+                              Ya tienes, cuenta? inicia
+                          </span>
+                     </a>
+                  </div>
+
+
+                  <!-- Resto de tu contenido -->
+              </div>
           </div>
-          <div class="box-root flex-flex" style="grid-area: 4 / 2 / auto / 5;">
-            <div class="box-root box-divider--light-all-2 animationLeftRight tans3s" style="flex-grow: 1;"></div>
-          </div>
-          <div class="box-root flex-flex" style="grid-area: 6 / start / auto / 2;">
-            <div class="box-root box-background--blue800" style="flex-grow: 1;"></div>
-          </div>
-          <div class="box-root flex-flex" style="grid-area: 7 / start / auto / 4;">
-            <div class="box-root box-background--blue animationLeftRight" style="flex-grow: 1;"></div>
-          </div>
-          <div class="box-root flex-flex" style="grid-area: 8 / 4 / auto / 6;">
-            <div class="box-root box-background--gray100 animationLeftRight tans3s" style="flex-grow: 1;"></div>
-          </div>
-          <div class="box-root flex-flex" style="grid-area: 2 / 15 / auto / end;">
-            <div class="box-root box-background--cyan200 animationRightLeft tans4s" style="flex-grow: 1;"></div>
-          </div>
-          <div class="box-root flex-flex" style="grid-area: 3 / 14 / auto / end;">
-            <div class="box-root box-background--blue animationRightLeft" style="flex-grow: 1;"></div>
-          </div>
-          <div class="box-root flex-flex" style="grid-area: 4 / 17 / auto / 20;">
-            <div class="box-root box-background--gray100 animationRightLeft tans4s" style="flex-grow: 1;"></div>
-          </div>
-          <div class="box-root flex-flex" style="grid-area: 5 / 14 / auto / 17;">
-            <div class="box-root box-divider--light-all-2 animationRightLeft tans3s" style="flex-grow: 1;"></div>
-          </div>
-        </div>
       </div>
-      <div class="box-root padding-top--24 flex-flex flex-direction--column" style="flex-grow: 1; z-index: 9;">
-        <div class="box-root padding-top--48 padding-bottom--24 flex-flex flex-justifyContent--center">
-          <h1><a href="http://blog.stackfindover.com/" rel="dofollow">Estudios de tiempos</a></h1>
-        </div>
-        <div class="formbg-outer">
-          <div class="formbg">
-            <div class="formbg-inner padding-horizontal--48">
-              <span class="padding-bottom--15">Registra tu cuenta</span>
-              <form action="" method="POST" id="stripe-login" class="mt-4">
-                {% csrf_token %}
-                {{ error }}
-
-                <div class="field padding-bottom--24">
-                  <label for="id_username">Primer nombre</label>
-                  {{ form.first_name }}
-                </div>
-                <div class="field padding-bottom--24">
-                  <label for="id_username">Apellido</label>
-                  {{ form.last_name }}
-                </div>
-
-                <div class="field padding-bottom--24">
-                  <label for="id_username">Nombre de usuario</label>
-                  {{ form.username }}
-                </div>
-                <div class="field padding-bottom--24">
-                  <label for="id_password1">Contraseña</label>
-                  {{ form.password1 }}
-                </div>
-                <div class="field padding-bottom--24">
-                  <label for="id_password2">Confirmar contraseña</label>
-                  {{ form.password2 }}
-                </div>
-                <div class="field padding-bottom--24">
-                  <label for="id_email">Correo electrónico</label>
-                  {{ form.email }}
-                </div>
-                <div class="field padding-bottom--24">
-                  <input type="submit" name="submit" value="Registrarse" class="btn btn-primary">
-                </div>
-              </form>
-              
-            </div>
+      <div class="flex-1 bg-indigo-100 text-center hidden lg:flex">
+          <div class="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat">
+            <img src="{% static 'img/draw1.svg' %}" alt="">     
           </div>
-          <div class="footer-link padding-top--24">
-            <span>Si ya tienes una cuenta, inicia sesion <a href="{% url 'loginn' %}" style="color: #001ac3">Login</a></span>
-            <div class="listing padding-top--24 padding-bottom--24 flex-flex center-center">
-              <span><a href="#">© Estudios de tiempos</a></span>
-              <span><a href="#">Contact</a></span>
-              <span><a href="#">Privacy & terms</a></span>
-            </div>
-          </div>
-        </div>
+
       </div>
-    </div>
   </div>
-</body>
+</div>
 
-</html>
+
+{% endblock %}
