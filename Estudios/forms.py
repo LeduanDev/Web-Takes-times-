@@ -1,8 +1,7 @@
-from tkinter import Widget
 from django import forms
 from .models import Comentario2, Estudio, Actividad, Tipo, Area, Maquina, ArchivoCompartido
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from .models import User
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.forms import PasswordChangeForm
 from django import forms
@@ -59,7 +58,7 @@ class EditarActividadForm(forms.ModelForm):
 class SignupForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=True)
     last_name = forms.CharField(max_length=30, required=True)
-    email = forms.EmailField(max_length=254, required=True)
+    # email = forms.EmailField(max_length=254, required=True)
 
     class Meta:
         model = User
@@ -67,14 +66,14 @@ class SignupForm(UserCreationForm):
             "username",
             "first_name",
             "last_name",
-            "email",
+            # "email",
             "password1",
             "password2",
         )
         widgets = {
             'username': forms.TextInput(attrs={ 'placeholder' : 'Usuario','class': 'w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white'}),
             'last_name': forms.TextInput(attrs={ 'placeholder' : 'Usuario','class': 'w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white'}),
-            'email': forms.EmailInput(attrs={ 'placeholder' : 'Usuario','class': 'w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white'}),
+            # 'email': forms.EmailInput(attrs={ 'placeholder' : 'Usuario','class': 'w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white'}),
             'password1': forms.TextInput(attrs={ 'placeholder' : 'Usuario','class': 'w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white'}),
             'password2': forms.TextInput(attrs={ 'placeholder' : 'Usuario','class': 'w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white'}),
 
@@ -84,19 +83,24 @@ class SignupForm(UserCreationForm):
 class PerfilForm(UserChangeForm):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email', 'username']
-
-        # Desactivar la validación del modelo para el campo 'username'
+        fields = ['first_name', 'last_name', 'email', 'username', 'image']
         widgets = {
-            'username': forms.TextInput(attrs={'min_length': 1}),
+            'first_name': forms.TextInput(attrs={ 'placeholder' : 'Usuario','class': 'appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4'}),
+            'username': forms.TextInput(attrs={ 'placeholder' : 'Usuario','class': 'appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3'}),
+            'last_name': forms.TextInput(attrs={ 'placeholder' : 'Usuario','class': 'appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4'}),
+            'email': forms.EmailInput(attrs={ 'placeholder' : 'Usuario','class': 'appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4'}),
+            'password1': forms.TextInput(attrs={ 'placeholder' : 'Usuario','class': 'appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4'}),
+            'password2': forms.TextInput(attrs={ 'placeholder' : 'Usuario','class': 'appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4'}),
+            'image': forms.ClearableFileInput(attrs={'class': 'appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4'}),
         }
-        
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Eliminar el campo de contraseña del formulario
         self.fields.pop('password', None)
-        # Personalizar el widget del campo username
         self.fields['username'].widget.attrs['autocomplete'] = 'off'
+        self.fields['username'].help_text = ''  # Eliminar el mensaje de ayuda predeterminado
+        # Puedes añadir un mensaje personalizado si lo deseas
+        # self.fields['username'].help_text = 'Tu mensaje personalizado aquí'
 
     def clean_first_name(self):
         first_name = self.cleaned_data.get('first_name')
@@ -121,6 +125,13 @@ class PerfilForm(UserChangeForm):
         if not username:
             raise forms.ValidationError("El campo 'Nombre de usuario' no puede estar vacío.")
         return username
+
+    def clean_image(self):
+        image = self.cleaned_data.get('image', False)
+        if image:
+            if not hasattr(image, 'content_type') or not image.content_type.startswith('image'):
+                raise forms.ValidationError('El archivo no es una imagen válida.')
+        return image
 
 
 class MaquinaForm(forms.ModelForm):

@@ -81,6 +81,6 @@ def cerrar(request):
     response["Cache-Control"] = "no-cache, no-store, must-revalidate"
     response["Pragma"] = "no-cache"
     response["Expires"] = "0"
-    response["Location"] = reverse("loginn")
+    response["Location"] = reverse("hero")
     response.status_code = 302
     return response

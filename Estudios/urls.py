@@ -1,11 +1,12 @@
 from django.urls import path, include
-from  Estudios.Controladores import Cexcel, Controlador_crud, ControladorReloj, Controladro_sesion, C_compartir
+from  Estudios.Controladores import Cexcel, Controlador_crud, ControladorReloj, Controladro_sesion, C_general
 from django.conf import settings
 from django.contrib.staticfiles.urls import static
 
 
 urlpatterns = [
-    path("", Controladro_sesion.loginn, name="loginn"),
+    path("", C_general.hero, name="hero"),
+    path("loginn", Controladro_sesion.loginn, name="loginn"),
     path("home", Controlador_crud.home, name="home"),
     path("form", Controlador_crud.form, name="form"),
     path("perfil", Controlador_crud.perfil, name="perfil"),
@@ -44,5 +45,5 @@ urlpatterns = [
      path('copiar_estudio/<int:estudio_id>/', Controlador_crud.copiar_estudio, name='copiar_estudio')
 
   
-] 
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

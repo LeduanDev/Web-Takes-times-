@@ -2,10 +2,15 @@ $(document).ready(function () {
     $('form#perfil-form').submit(function (event) {
         event.preventDefault();
 
+        // Crear un objeto FormData para manejar archivos
+        var formData = new FormData(this);
+
         $.ajax({
             type: 'POST',
             url: actualizarPerfilUrl,
-            data: $(this).serialize(),
+            data: formData,
+            processData: false,
+            contentType: false,
             success: function (data) {
                 if (data.success) {
                     Swal.fire({
@@ -15,21 +20,33 @@ $(document).ready(function () {
                         timer: 1500
                     });
                 } else {
+                    // Recopilar y formatear los errores
+                    var errorMessages = [];
+                    $.each(data.errors, function (field, errors) {
+                        $.each(errors, function (index, error) {
+                            errorMessages.push(error.message);
+                        });
+                    });
+
+                    // Mostrar los errores en la alerta
                     Swal.fire({
                         icon: 'error',
                         title: 'Error al actualizar el perfil.',
-                        text: 'No dejes campos vacios.',
+                        html: '<ul>' + errorMessages.map(function (message) {
+                            return '<li>' + message + '</li>';
+                        }).join('') + '</ul>',
                     });
 
                     // Actualiza los mensajes de error en tiempo real
-                    $.each(data.errors, function (field, error) {
-                        $('#' + field + '-error').text(error);
+                    $.each(data.errors, function (field, errors) {
+                        $('#' + field + '-error').text(errors[0].message); // Muestra el primer error para cada campo
                     });
                 }
             },
         });
     });
 });
+
 
 $(document).ready(function () {
     // Nuevo formulario de cambio de contraseña

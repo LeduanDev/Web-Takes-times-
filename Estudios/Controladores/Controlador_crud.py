@@ -1,7 +1,7 @@
 from django.contrib.auth import update_session_auth_hash
 from django.http import JsonResponse
 import json
-from django.contrib.auth.models import User
+from ..models import User
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
@@ -174,42 +174,18 @@ def actualizar_perfil(request):
     usuario = request.user
 
     if request.method == "POST":
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
+        perfil_form = PerfilForm(request.POST, request.FILES, instance=usuario)  
 
-        # Realiza validaciones necesarias aquí, si es necesario
-        errors = []
-
-        if not username:
-            errors.append("El campo 'de nombre de usuario ' no puede estar vacío.")
-
-        if not email:
-            errors.append("El campo 'email' no puede estar vacío.")
-
-        if not first_name:
-            errors.append("El campo 'Nombre' no puede estar vacío.")
-
-        if not last_name:
-            errors.append("El campo 'apellido' no puede estar vacío.")
-
-        if errors:
+        if perfil_form.is_valid():
+            perfil_form.save()
+            messages.success(request, "Perfil actualizado correctamente.")
+            return JsonResponse({'success': True})
+        else:
+            errors = perfil_form.errors.get_json_data()
             return JsonResponse({'success': False, 'errors': errors})
-        
-        # Actualiza los campos del usuario
-        usuario.username = username
-        usuario.email = email
-        usuario.first_name = first_name
-        usuario.last_name = last_name
-        usuario.save()
-
-        messages.success(request, "Perfil actualizado correctamente.")
-        return JsonResponse({'success': True})
 
     else:
-        # Puedes devolver un JsonResponse indicando que no es una solicitud POST si lo deseas
-        return JsonResponse({'success': False, 'errors': 'No es una solicitud POST.'})
+        return JsonResponse({'success': False, 'errors': 'No es una solicitud POST.'})    
 
 
 #funcion para crear el estudio junto con sus actividades 

@@ -3,7 +3,17 @@ from django.utils import timezone
 from django.db import models
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
+from generalApp.settings import MEDIA_URL, STATIC_URL
+
+class User(AbstractUser):
+    image = models.ImageField(upload_to='users/', null=True, blank=True)
+
+    def get_image(self):
+        if self.image:
+            return '{}{}'.format(MEDIA_URL, self.image)
+        return '{}{}'.format(STATIC_URL, 'img/empty.png')
+        
 
 
 class Categoria(models.Model):

@@ -15,7 +15,11 @@
             <div class="md:w-1/4 border-r p-5">
                 <div class="flex flex-col items-center justify-center">
                     <header class="px-2 py-4 mt-16 flex flex-col justify-center items-center text-center">
+                        {% if user.image %}
+                        <img class="inline-flex object-cover border-4 border-indigo-600 rounded-full shadow-lg bg-indigo-50 text-indigo-600 h-24 w-24" src="{{usuario.image.url}}" alt="">
+                        {% else %}
                         <img class="inline-flex object-cover border-4 border-indigo-600 rounded-full shadow-lg bg-indigo-50 text-indigo-600 h-24 w-24" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHwyfHxoZWFkc2hvdHxlbnwwfDB8fHwxNjk1ODE3MjEzfDA&ixlib=rb-4.0.3&q=80&w=1080" alt="">
+                        {% endif %}
                         <h1 class="text-2xl text-gray-500 font-bold mt-2">{{ usuario.username }}</h1>
                         <h2 class="text-base md:text-xl text-gray-500 font-bold">
                             {{ usuario.email }}
@@ -25,31 +29,28 @@
                 </div>
             </div>
             <div class="md:w-5/12 border-r p-5">
-                <form method="post" id="perfil-form">
+
+                <form method="POST" enctype="multipart/form-data" id="perfil-form" action="{% url 'actualizar_perfil' %}">
                     {% csrf_token %}
-                    <div class="mb-4">
-                        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="{{ perfil_form.username.id_for_label }}">Nombre de usuario</label>
-                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="text" placeholder="Identificador de usuario" value="{{ user.username }}" name="username" required>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="{{ perfil_form.email.id_for_label }}">Correo</label>
-                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4" type="text" placeholder="Correo" value="{{ user.email }}" name="email" required>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">Nombre Real</label>
-                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="text" placeholder="Nombre" value="{{ usuario.first_name }}" name="first_name" required>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">Apellido</label>
-                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4" type="text" placeholder="Apellido" value="{{ usuario.last_name }}" name="last_name" required>
-                    </div>
-                    <div class="flex justify-center mt-5 text-center">
-                        <button class="btn-primary flex gap-1 px-4 py-2 rounded-lg bg-black  text-white" type="submit">
-                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-device-floppy"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" /><path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M14 4l0 4l-6 0l0 -4" /></svg>
-                            <span class="ml-2">Actualizar</span>
-                        </button>
-                    </div>
+                    {{ perfil_form.as_p }}
+                    <span id="first_name-error" class="error-message"></span>
+                    <span id="last_name-error" class="error-message"></span>
+                    <span id="email-error" class="error-message"></span>
+                    <span id="username-error" class="error-message"></span>
+                    <span id="image-error" class="error-message"></span>
+                    <br>
+                    <button class="flex justify-center items-center gap-1 px-4 py-2 rounded-lg bg-black text-white" type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-device-floppy">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2"/>
+                            <path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+                            <path d="M14 4l0 4l-6 0l0 -4"/>
+                        </svg>
+                        <span class="ml-2">Actualizar</span>
+                    </button>
                 </form>
+                
+                
             </div>
             <div class="md:w-3/12 p-5">
                 <div class="mb-4">
