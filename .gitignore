@@ -1,4 +1,8 @@
 db.sqlite3
-entorno-tiempos/
-v.scode/
-node_modules/
+/entorno-tiempos/
+/.vscode/
+/node_modules/
+*.pyc
+__pycache__/
+*.log
+.env

@@ -33,7 +33,7 @@ function agregarActividadALaLista(actividad) {
 
     const eliminarBtn = document.createElement('button');
     eliminarBtn.textContent = 'Eliminar';
-    eliminarBtn.classList.add('bg-red-500', 'hover:bg-red-700', 'text-white', 'font-bold', 'py-1', 'px-2', 'rounded');
+    eliminarBtn.classList.add('bg-red-600', 'hover:bg-red-700', 'text-white', 'font-bold', 'py-1', 'px-2', 'rounded');
     eliminarBtn.addEventListener('click', function () {
         // Obtener el índice de la actividad en el array temporal
         const index = actividadesTemporales.findIndex(activ => activ.numero === actividad.numero);

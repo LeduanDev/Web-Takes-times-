@@ -5,9 +5,6 @@
 
 {% block contenido %}
 
-
-
-
     <section class="sm:mt-6 lg:mt-8 mt-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div
@@ -31,7 +28,7 @@
                         </a>
                     </div>
                     <div class="mt-3 sm:mt-0 sm:ml-3">
-                        <a href="#"
+                        <a href="{% url 'registro' %}"
                             class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-gray-800 bg-indigo-100 hover:bg-indigo-200 md:py-4 md:text-lg md:px-10">
                             Registro
                         </a>
@@ -50,27 +47,83 @@
     </section>
 
 
-    <div class="sm:flex items-center max-w-screen-xl">
-        <div class="sm:w-1/2 p-10">
-            <div class="image object-center text-center">
-                <img src="https://i.imgur.com/WbQnbas.png">
+
+    <div class="max-w-screen-xl mx-auto my-10" id="sobre">
+        <div class="flex flex-wrap items-center">
+            <div class="w-full sm:w-1/2 p-10">
+                <div class="image object-center text-center">
+                    <img src="https://i.imgur.com/WbQnbas.png" alt="Company Image">
+                </div>
             </div>
-        </div>
-        <div class="sm:w-1/2 p-5">
-            <div class="text">
-                <span class="text-gray-500 border-b-2 border-indigo-600 uppercase">Sobre la aplicación</span>
-                <h2 class="my-4 font-bold text-3xl  sm:text-4xl ">About <span class="text-indigo-600">Our Company</span>
-                </h2>
-                <p class="text-gray-700">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, commodi
-                    doloremque, fugiat illum magni minus nisi nulla numquam obcaecati placeat quia, repellat tempore
-                    voluptatum.
-                </p>
+            <div class="w-full sm:w-1/2 p-5">
+                <div class="text text-center sm:text-left">
+                    <span class="text-gray-500 border-b-2 border-indigo-600 uppercase">Sobre la aplicación</span>
+                    <h2 class="my-4 font-bold text-3xl sm:text-4xl">Sobre <span class="text-indigo-600">la aplicación</span></h2>
+                    <p class="text-gray-700">
+                        **Takes Times** es una aplicación diseñada para facilitar la toma de tiempos en cualquier aspecto. Creada con el propósito de ofrecer una solución práctica y eficiente, 
+                        la aplicación se enfoca en ser lo más minimalista posible para proporcionar una experiencia sencilla y efectiva en la gestión de tiempos.
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-
-    <div class="mt-28 py-12">
+    
+    <div class="max-w-2xl mx-auto my-10" id="vista-previa">
+        <h2 class="text-center text-2xl font-bold mb-5">Vista Previa</h2>
+        <div id="default-carousel" class="relative rounded-lg overflow-hidden shadow-lg" data-carousel="static">
+            <!-- Carousel wrapper -->
+            <div class="relative h-80 md:h-96" data-carousel-inner>
+                <!-- Item 1 -->
+                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                    <img src="{% static 'img/carrousel/tareas.png' %}" class="object-cover w-full h-full" alt="Slide 1">
+                </div>
+                <!-- Item 2 -->
+                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                    <img src="{% static 'img/carrousel/estudio.png' %}" class="object-cover w-full h-full" alt="Slide 2">
+                </div>
+                <!-- Item 3 -->
+                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                    <img src="{% static 'img/carrousel/personalizar.png' %}" class="object-cover w-full h-full" alt="Slide 3">
+                </div>
+                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                    <img src="{% static 'img/carrousel/perfil.png' %}" class="object-cover w-full h-full" alt="Slide 4">
+                </div>
+                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                    <img src="{% static 'img/carrousel/excel.png' %}" class="object-cover w-full h-full" alt="Slide 5">
+                </div>
+            </div>
+            <!-- Slider indicators -->
+            <!-- <div class="flex absolute bottom-5 left-1/2 z-30 -translate-x-1/2 space-x-2" data-carousel-indicators>
+                <button type="button" class="w-3 h-3 rounded-full bg-gray-300 hover:bg-gray-400 focus:outline-none focus:bg-gray-400 transition"></button>
+                <button type="button" class="w-3 h-3 rounded-full bg-gray-300 hover:bg-gray-400 focus:outline-none focus:bg-gray-400 transition"></button>
+                <button type="button" class="w-3 h-3 rounded-full bg-gray-300 hover:bg-gray-400 focus:outline-none focus:bg-gray-400 transition"></button>
+                <button type="button" class="w-3 h-3 rounded-full bg-gray-300 hover:bg-gray-400 focus:outline-none focus:bg-gray-400 transition"></button>
+                <button type="button" class="w-3 h-3 rounded-full bg-gray-300 hover:bg-gray-400 focus:outline-none focus:bg-gray-400 transition"></button>
+            </div> -->
+            <!-- Slider controls -->
+            <button type="button" class="flex absolute top-1/2 left-3 z-40 items-center justify-center w-10 h-10 bg-gray-200/50 rounded-full hover:bg-gray-300 focus:outline-none transition" data-carousel-prev>
+                <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+            </button>
+            <button type="button" class="flex absolute top-1/2 right-3 z-40 items-center justify-center w-10 h-10 bg-gray-200/50 rounded-full hover:bg-gray-300 focus:outline-none transition" data-carousel-next>
+                <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </button>
+        </div>
+    
+        <!-- <p class="mt-5 text-center text-gray-700 dark:text-gray-300">
+            This carousel slider component is part of a larger, open-source library of Tailwind CSS components. Learn more by going to the official
+            <a class="text-blue-600 hover:underline" href="https://flowbite.com/docs/getting-started/introduction/" target="_blank">
+                Flowbite Documentation
+            </a>.
+        </p> -->
+        <script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"></script>
+    </div>
+    
+    
+    <div class="flex justify-center mt-28 py-12" id="contacto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="lg:text-center">
                 <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">Contacto</h2>
@@ -78,7 +131,7 @@
                     Información del programador
                 </p>
                 <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-                    Sitio web de practica, creado por leduan Stiven Del basto
+                    Sitio web de practica, creado por Leduan Stiven Del Basto Zapata
                 </p>
             </div>
     
@@ -160,6 +213,28 @@
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
+    
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <dt class="text-lg leading-6 font-medium text-gray-900">
+                                Disponibilidad
+                            </dt>
+                            <dd class="mt-2 text-base text-gray-500">
+                                Libre de lunes a viernes
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <div class="flex items-center justify-center h-12 w-12 rounded-md bg-white text-white">
+                                
+                                <svg class="size-6" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" viewBox="0 0 256 256">
+                                    <path
+                                        d="M218.123 218.127h-37.931v-59.403c0-14.165-.253-32.4-19.728-32.4-19.756 0-22.779 15.434-22.779 31.369v60.43h-37.93V95.967h36.413v16.694h.51a39.907 39.907 0 0 1 35.928-19.733c38.445 0 45.533 25.288 45.533 58.186l-.016 67.013ZM56.955 79.27c-12.157.002-22.014-9.852-22.016-22.009-.002-12.157 9.851-22.014 22.008-22.016 12.157-.003 22.014 9.851 22.016 22.008A22.013 22.013 0 0 1 56.955 79.27m18.966 138.858H37.95V95.967h37.97v122.16ZM237.033.018H18.89C8.58-.098.125 8.161-.001 18.471v219.053c.122 10.315 8.576 18.582 18.89 18.474h218.144c10.336.128 18.823-8.139 18.966-18.474V18.454c-.147-10.33-8.635-18.588-18.966-18.453"
+                                        fill="#0A66C2" />
+                                </svg>
+
     
                             </div>
                         </div>
