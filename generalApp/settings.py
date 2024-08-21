@@ -90,10 +90,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'generalApp.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
-
 import dj_database_url
 
 DATABASES = {
@@ -102,22 +98,7 @@ DATABASES = {
     )
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'takestimes',
-#         'USER': 'takestimes_user',
-#         'PASSWORD': 'v0F7OuEpnqUhz3dV6GojYhZ6gFO8qei7',
-#         'HOST': 'dpg-cr2glq2j1k6c73e7qlg0-a',
-#         'PORT': '5432',
-#         'OPTIONS': {
-#             'service': 'takestimes',
-#         }
-#     }
-# }
 
-# Password validation
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -162,6 +143,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Almacenamiento de archivos estáticos con Whitenoise
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # STATIC_URL = '/static/'
 # MEDIA_URL = '/media/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -169,4 +152,19 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'takestimes',
+#         'USER': 'takestimes_user',
+#         'PASSWORD': 'v0F7OuEpnqUhz3dV6GojYhZ6gFO8qei7',
+#         'HOST': 'dpg-cr2glq2j1k6c73e7qlg0-a',
+#         'PORT': '5432',
+#         'OPTIONS': {
+#             'service': 'takestimes',
+#         }
+#     }
+# }
+
+
