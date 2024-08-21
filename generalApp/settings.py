@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+from decouple import config
 import os
 from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,10 +21,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY =  os.environ.get('SECRET_KEY', default='your secret key')
+SECRET_KEY = config('SECRET_KEY', default='your default secret key')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'True' 
+DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = []
 
@@ -91,16 +92,29 @@ WSGI_APPLICATION = 'generalApp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+
+import dj_database_url
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'takestimes',
-        'USER': 'takestimes_user',
-        'PASSWORD': 'v0F7OuEpnqUhz3dV6GojYhZ6gFO8qei7',
-        'HOST': 'dpg-cr2glq2j1k6c73e7qlg0-a',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(
+        default='postgresql://takestimes_user:v0F7OuEpnqUhz3dV6GojYhZ6gFO8qei7@dpg-cr2glq2j1k6c73e7qlg0-a.oregon-postgres.render.com/takestimes'
+    )
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'takestimes',
+#         'USER': 'takestimes_user',
+#         'PASSWORD': 'v0F7OuEpnqUhz3dV6GojYhZ6gFO8qei7',
+#         'HOST': 'dpg-cr2glq2j1k6c73e7qlg0-a',
+#         'PORT': '5432',
+#         'OPTIONS': {
+#             'service': 'takestimes',
+#         }
+#     }
+# }
+
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -138,11 +152,19 @@ NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 
-
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Agrega esta línea
+
+# Configuración de archivos multimedia
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Almacenamiento de archivos estáticos con Whitenoise
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATIC_URL = '/static/'
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
