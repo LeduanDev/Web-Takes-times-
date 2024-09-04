@@ -3,11 +3,11 @@
 # Salir inmediatamente si un comando falla
 set -o errexit
 
-# Instalar Node.js y npm
-curl -sL https://deb.nodesource.com/setup_14.x | bash -
+# Instalar Node.js 18.x y npm
+curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
 apt-get install -y nodejs
 
-# Verificar instalación de Node y npm
+# Verificar instalación de Node.js y npm
 node -v
 npm -v
 
