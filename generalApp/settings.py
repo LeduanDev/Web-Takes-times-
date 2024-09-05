@@ -25,8 +25,8 @@ SECRET_KEY = config('SECRET_KEY', default='your default secret key')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'RENDER' not in os.environ
-
+# DEBUG = 'RENDER' not in os.environ
+DEBUG = 'True'
 
 ALLOWED_HOSTS = []
 
@@ -91,21 +91,12 @@ WSGI_APPLICATION = 'generalApp.wsgi.application'
 
 import dj_database_url
 
-if DEBUG:
-    # Configuración para desarrollo (SQLite)
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
-    }
-else:
-    # Configuración para producción (PostgreSQL)
-    DATABASES = {
-        'default': dj_database_url.config(
-            default=config('DATABASE_URL')
-        )
-    }
+DATABASES = {
+    'default': dj_database_url.config(
+        default='postgresql://takestimes_user:v0F7OuEpnqUhz3dV6GojYhZ6gFO8qei7@dpg-cr2glq2j1k6c73e7qlg0-a.oregon-postgres.render.com/takestimes'
+    )
+}
+
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -136,7 +127,7 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
+# NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
 
 
 STATIC_URL = '/static/'
@@ -150,4 +141,26 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# STATIC_URL = '/static/'
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# Default primary key field type
+# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'takestimes',
+#         'USER': 'takestimes_user',
+#         'PASSWORD': 'v0F7OuEpnqUhz3dV6GojYhZ6gFO8qei7',
+#         'HOST': 'dpg-cr2glq2j1k6c73e7qlg0-a',
+#         'PORT': '5432',
+#         'OPTIONS': {
+#             'service': 'takestimes',
+#         }
+#     }
+# }
+
 
